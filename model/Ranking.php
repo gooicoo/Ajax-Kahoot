@@ -1,15 +1,15 @@
 <?php
 class Ranking {
-  public $id;
-  public $id_jugador;
-  public $puntuacion;
-  public $id_kahoot;
+  public $ranking_id;
+  public $points;
+  public $kahoot_id;
+  public $gamer_id;
 
-  function __construct($id, $id_jugador, $puntuacion, $id_kahoot) {
-    $this -> id = $id;
-    $this -> id_jugador = $id_jugador;
-    $this -> puntuacion = $puntuacion;
-    $this -> id_kahoot = $id_kahoot;
+  function __construct($ranking_id, $gamer_id, $points, $kahoot_id) {
+    $this -> ranking_id = $ranking_id;
+    $this -> points = $points;
+    $this -> kahoot_id = $kahoot_id;
+    $this -> gamer_id = $gamer_id;
   }
 }
  ?>

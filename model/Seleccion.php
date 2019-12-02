@@ -1,15 +1,17 @@
 <?php
 class Seleccion {
-  public $id;
-  public $id_respuesta;
-  public $tiempo;
-  public $jugador_id;
+  public $selected_id;
+  public $answer_name;
+  public $answer_id;
+  public $gamer_id;
+  public $time;
 
-  function __construct($id, $id_respuesta, $tiempo, $jugador_id) {
-    $this -> id = $id;
-    $this -> id_respuesta = $id_respuesta;
-    $this -> tiempo = $tiempo;
-    $this -> jugador_id = $jugador_id;
+  function __construct($selected_id, $answer_name, $answer_id, $time, $gamer_id) {
+    $this -> selected_id = $selected_id;
+    $this -> answer_name = $answer_name;
+    $this -> answer_id = $answer_id;
+    $this -> gamer_id = $gamer_id;
+    $this -> time = $time;
   }
 }
  ?>
