@@ -6,7 +6,6 @@ create table users(
 	user_type varchar(10) NOT NULL	
 	);
 
-
 create table kahoot(
 	kahoot_id int auto_increment primary key,
 	user_id int,
@@ -22,8 +21,8 @@ create table question(
 	question_name varchar(30) NOT NULL,
 	kahoot_id int,
 	time int NOT NULL,
-	user_type varchar(10) NOT NULL,
 	orden int NOT NULL,
+	question_points int NOT NULL,
 	FOREIGN KEY (kahoot_id) REFERENCES kahoot(kahoot_id)
 	);
 
@@ -62,7 +61,6 @@ create table selected(
 	FOREIGN KEY (answer_id) REFERENCES answer(answer_id)
 	);
 
-
-
-
-
+INSERT INTO users (user_name,password,email,user_type) VALUES ('Joel',sha2('P@ssw0rd',512),'joel@gmail.com','admin');
+INSERT INTO users (user_name,password,email,user_type) VALUES ('Didac',sha2('123JAJA',512),'didac@gmail.com','gamer');
+INSERT INTO users (user_name,password,email,user_type) VALUES ('Marc',sha2('Tostadora',512),'marc@gmail.com','gamer');
