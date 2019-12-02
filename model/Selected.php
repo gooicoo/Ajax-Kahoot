@@ -1,5 +1,5 @@
 <?php
-class Seleccion {
+class Selected {
   public $selected_id;
   public $answer_name;
   public $answer_id;

@@ -1,5 +1,5 @@
 <?php
-class Jugador {
+class Gamer {
   public $gamer;
   public $gamer_name;
   public $kahoot_id;
