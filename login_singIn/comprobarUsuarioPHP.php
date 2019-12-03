@@ -2,7 +2,7 @@
       try {
         $hostname = "localhost";
         $dbname = "kahoot";
-        $username = "joel";
+        $username = "didac";
         $pw = "P@ssw0rd";
         $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
       } catch (PDOException $e) {
@@ -18,10 +18,10 @@
     	session_start();
         $user = $_POST['user_name'];
         $_SESSION['user'] = $user;
-        
-        $password = $_POST['password']; 
+
+        $password = $_POST['password'];
         $password = hash('sha512', $password);
-        
+
         login($user,$password,$pdo);
     }
 

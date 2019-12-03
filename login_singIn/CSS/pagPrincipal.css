@@ -1,0 +1,94 @@
+@import url(https://fonts.googleapis.com/css?family=Bungee);
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: #EEE;
+}
+#barra-menu{
+  background-color: #23b2e1;
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.75);
+}
+
+#crear-pregunta{
+  width: 1030px;
+  height: 120px;
+  margin: 0 auto;
+  margin-top: 120px;
+}
+.creador-titulo{
+  width: 800px;
+  height: 80px;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.75);
+  text-align: center;
+  font-size: 30px;
+
+}
+.enviar-opcion{
+  width: 200px;
+  height: 80px;
+  margin-left: 20px;
+  border: 0;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px 1px rgba(60,60,60,0.75) inset;
+  font-family: 'Bungee';
+  font-size: 25px;
+  color: #333;
+  background-color: #1cd431;
+}
+
+#separador{
+  width: 95%;
+}
+
+#juegos-creados{
+  width: 90%;
+  height: 500px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+#juegos-creados p{
+  color: #1594ee;
+  font-family: 'Bungee';
+  font-size: 30px;
+}
+.nombre-juego{
+  font-family: 'Bungee';
+  font-size: 50px;
+  margin-top: 20px;
+  color: red;
+}
+.lista-juegos{
+  font-size: 20px;
+}
+
+
+.opcion-jugar{
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#aaa{
+  color: red;
+  font-size: 30px;
+
+}
