@@ -1,0 +1,103 @@
+@import url(https://fonts.googleapis.com/css?family=Bungee);
+
+body,html {
+	font-family: 'Passion One';
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	color:black;
+	background-color:rgb(65, 196, 222);
+	box-sizing: content-box;
+}
+
+.btn{
+	display:block;
+  	margin-left: auto;
+  	margin-right: auto;
+	width: 10%;
+	margin: auto;
+	border: solid black 4px;
+	font-family: 'Bungee';
+	font-size:2vw;
+	margin-bottom: 10px;
+	color: black;
+	background-color:rgb(65, 196, 222);
+	box-shadow: 0 4px  4px  rgba(0, 0, 0, .1),
+              0 1px  6px  rgba(0, 0, 0, .05),
+              0 8px  8px  rgba(0, 0, 0, .2), 
+              0 16px 16px rgba(0, 0, 0, .2), 
+              8px 32px 32px rgba(0, 0, 0, .15), 
+              8px 64px 64px rgba(0, 0, 0, .15);
+	border-radius: 10px;
+}
+form{
+	width: 100%;
+}
+.letter{
+	width: 15%;
+	font-size:1.5vw;
+	margin-right: 50px;
+	font-family: 'Bungee';
+	margin-top: 20px;
+}
+.jugador{
+	overflow: auto;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.jugadores{
+	width: 80%;
+	height: 50%;
+	margin: auto;
+}
+.letters{
+	position: relative;
+	bottom: 0;
+}
+.waiting{
+	width: 100%;
+	text-align: center;
+	font-size:3vw;
+	font-family: 'Bungee';
+	border-bottom: solid black 4px;
+}
+.container{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+}
+.container_pin{
+	font-family: 'Bungee';
+	width: 100%;
+	height: 20%;
+	color:black;
+  	text-transform: uppercase;
+  	margin: 50px auto 0 auto;
+  	font-size:8vw;
+	text-align: center;
+	text-shadow: 10px;
+}
+
+
+@keyframes colorChange{
+	25% {
+    	background: rgb(65, 196, 222);
+	}
+
+	50% {
+	    background: rgb(140, 199, 63);
+	}
+
+	75% {
+	    background: rgb(243, 211, 51);
+	}
+
+	100% {
+	    background: rgb(247, 142, 86);
+	}
+}
