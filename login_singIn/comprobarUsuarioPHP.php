@@ -2,7 +2,7 @@
       try {
         $hostname = "localhost";
         $dbname = "kahoot";
-        $username = "didac";
+        $username = "joel";
         $pw = "P@ssw0rd";
         $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
       } catch (PDOException $e) {

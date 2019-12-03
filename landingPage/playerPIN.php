@@ -10,7 +10,7 @@
       try {
        $hostname = "localhost";
        $dbname = "kahoot";
-       $username = "didac";
+       $username = "joel";
        $pw = "P@ssw0rd";
        $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
        } catch (PDOException $e) {
@@ -39,6 +39,9 @@
 
           if ($row!="") {
             $queryPin = $pdo -> prepare("SELECT pin FROM kahoot where pin='$pinGame';");
+            session_start();
+            $_SESSION['pin'] = $pinGame;
+
             $queryPin -> execute();
             $rowId = $queryPin->fetch();
             header("Location: ./playerNick.php");

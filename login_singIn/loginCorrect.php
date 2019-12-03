@@ -9,7 +9,7 @@
 			try {
 			 $hostname = "localhost";
 			 $dbname = "kahoot";
-			 $username = "didac";
+			 $username = "joel";
 			 $pw = "P@ssw0rd";
 			 $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
 			 } catch (PDOException $e) {
@@ -42,23 +42,24 @@
 				<p>LISTADO DE JUEGOS</p>
 
 				<div class="lista-juegos">
-					<form class="" action="../waitingRoom/index.php" method="post">
+					<form action="../waitingRoom/index.php" method="post">
 
 						<?php
 							$user = $_SESSION['userId'];
-							$query = $pdo -> prepare(" SELECT kahoot_name FROM kahoot where user_id=$user; ");
+							$query = $pdo -> prepare(" SELECT kahoot_name,kahoot_id FROM kahoot where user_id=$user; ");
 							$query -> execute();
 							$row = $query -> fetch();
 
 							while ($row) {
-								$partida = $row['kahoot_name'] ;
-								echo "<input class='nombre-juego' type='radio' name='gender' value='$partida' >".$partida." </input> <br>";
+								$partida = $row['kahoot_name'];
+								$id_kahoot = $row['kahoot_id'];
+								echo "<input class='nombre-juego' type='radio' name='gender' value='$id_kahoot' >".$partida." </input> <br>";
 								$row = $query->fetch();
 							}
 
 						?>
 
-						<input class="enviar-opcion opcion-jugar" type="submit" name="" value="JUGAR">
+						<input class="enviar-opcion opcion-jugar" type="submit" value="JUGAR">
 					</form>
 
 				</div>

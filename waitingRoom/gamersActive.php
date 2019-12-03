@@ -2,7 +2,7 @@
   try {
     $hostname = "localhost";
     $dbname = "kahoot";
-    $username = "didac";
+    $username = "joel";
     $pw = "P@ssw0rd";
     $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
   } catch (PDOException $e) {
@@ -11,7 +11,7 @@
   }
 
 	//Hardcode kahoot_id=2
-	$queryJugadores = $pdo->prepare("SELECT * FROM gamer where kahoot_id=2;");
+	$queryJugadores = $pdo->prepare("SELECT * FROM gamer where kahoot_id=".$_SESSION['kahoot_id'].";");
   $queryJugadores->execute();
   $rowJugador = $queryJugadores->fetch();
 

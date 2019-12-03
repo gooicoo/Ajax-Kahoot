@@ -10,20 +10,22 @@
       try {
       $hostname = "localhost";
       $dbname = "kahoot";
-      $username = "didac";
+      $username = "joel";
       $pw = "P@ssw0rd";
       $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
       } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
       }
+
+
     ?>
 
     <div id="contenido">
-      <form class="" action="index.html" method="post">
+      <form class="" action="prueba2.php" method="post">
 
-        <input id="codePin" type="text" name="" value="" placeholder="NICK NAME">
-        <input id="submitPin" type="submit" name="" value="ENTRAR">
+        <input id="codePin" type="text" name="nickname" placeholder="NICK NAME">
+        <input id="submitPin" type="submit" value="ENTRAR">
       </form>
 
     </div>
