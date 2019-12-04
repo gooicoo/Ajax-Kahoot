@@ -23,6 +23,7 @@
 		<div id="barra-menu">
 			<input type="checkbox" class="checkbox" id="menu-toogle"/>
 			<label for="menu-toogle" class="menu-toogle"></label>
+
 			<nav class="nav">
 			  <a href="#" class="nav__item">Perfil</a>
 			  <a href="#" class="nav__item">Cerrar sesión</a>
@@ -54,18 +55,18 @@
 
 				<div class="lista-juegos">
 					<form method="post">
-
 						<?php
 							$user = $_SESSION['userId'];
 							$query = $pdo -> prepare(" SELECT kahoot_name,kahoot_id FROM kahoot where user_id=$user; ");
 							$query -> execute();
 							$row = $query -> fetch();
-
+							$contador = 0;
 							while ($row) {
 								$partida = $row['kahoot_name'];
 								$id_kahoot = $row['kahoot_id'];
-								echo "<input class='nombre-juego' type='radio' name='gender' value='$id_kahoot' >".$partida." </input> <br>";
+								echo "<input id='$contador' class='nombre-juego' type='radio' name='gender' value='$id_kahoot' /><label for='$contador'>".$partida." </label> <br>";
 								$row = $query->fetch();
+								$contador ++;
 							}
 							if(isset($_POST['gender'])){
 								session_start();
@@ -73,7 +74,6 @@
 								header('Location: ../waitingRoom/index.php');
 							}
 						?>
-
 						<input class="enviar-opcion opcion-jugar" type="submit" value="JUGAR">
 					</form>
 
@@ -82,5 +82,7 @@
 			</div>
 
 		</div>
+
+
 	</body>
 </html>

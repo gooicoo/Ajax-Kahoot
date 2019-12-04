@@ -56,21 +56,20 @@ body{
   color: rgba(221, 231, 228, 1);
 }
 .menu-toogle {
+  background-image: url('../menu.png');
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
   position: absolute;
-  width: 35px;
+  width: 60px;
+  height: 60px;
   text-align: center;
+  line-height: 60px;
   left: 8px;
-  top: -10px;
   border-radius: 3px;
   transition: all .5s ease;
   z-index: 10;
 }
-.menu-toogle::before {
-  content: "☰";
-  font-size: 55px;
-  color: white;
-}
-
 .checkbox {
   display:none;
 }
@@ -140,20 +139,23 @@ body{
   margin: 0 auto;
   margin-top: 50px;
 }
-#juegos-creados p{
+#juegos-creados > p{
   color: #1594ee;
   font-family: 'Bungee';
   font-size: 30px;
 }
-.nombre-juego{
+.lista-juegos{
   font-family: 'Bungee';
-  font-size: 50px;
-  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+.nombre-juego{
+  margin-top: 25px;
+}
+input[type="radio"]:checked+label {
   color: red;
 }
-.lista-juegos{
-  font-size: 20px;
-}
+
 
 
 .opcion-jugar{
