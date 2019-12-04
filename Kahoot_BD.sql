@@ -64,3 +64,12 @@ create table selected(
 INSERT INTO users (user_name,password,email,user_type) VALUES ('Joel',sha2('P@ssw0rd',512),'joel@gmail.com','admin');
 INSERT INTO users (user_name,password,email,user_type) VALUES ('Didac',sha2('123JAJA',512),'didac@gmail.com','gamer');
 INSERT INTO users (user_name,password,email,user_type) VALUES ('Marc',sha2('Tostadora',512),'marc@gmail.com','gamer');
+
+
+INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`) VALUES (NULL, '1', 'Deportes', '43564', '0', '20');
+
+INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`) VALUES (NULL, '1', 'Wordpress', '24223', '0', '20');
+
+INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`) VALUES (NULL, '2', 'Wordpress', '12345', '0', '20');
+
+INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`) VALUES (NULL, '2', 'Sport', '98989', '0', '20');

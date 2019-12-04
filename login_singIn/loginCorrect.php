@@ -9,7 +9,7 @@
 			try {
 			 $hostname = "localhost";
 			 $dbname = "kahoot";
-			 $username = "joel";
+			 $username = "admin_kahoot";
 			 $pw = "P@ssw0rd";
 			 $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
 			 } catch (PDOException $e) {
@@ -42,7 +42,7 @@
 				<p>LISTADO DE JUEGOS</p>
 
 				<div class="lista-juegos">
-					<form action="../waitingRoom/index.php" method="post">
+					<form method="post">
 
 						<?php
 							$user = $_SESSION['userId'];
@@ -56,7 +56,11 @@
 								echo "<input class='nombre-juego' type='radio' name='gender' value='$id_kahoot' >".$partida." </input> <br>";
 								$row = $query->fetch();
 							}
-
+							if(isset($_POST['gender'])){
+								session_start();
+								$_SESSION['kahoot_id'] = $_POST['gender'];
+								header('Location: ../waitingRoom/index.php');
+							}
 						?>
 
 						<input class="enviar-opcion opcion-jugar" type="submit" value="JUGAR">

@@ -2,7 +2,7 @@
       try {
         $hostname = "localhost";
         $dbname = "kahoot";
-        $username = "joel";
+        $username = "admin_kahoot";
         $pw = "P@ssw0rd";
         $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
       } catch (PDOException $e) {
@@ -15,7 +15,7 @@
 
 <?php
     if ((isset($_POST['user_name'])) and (isset($_POST['password']))){
-    	session_start();
+        session_start();
         $user = $_POST['user_name'];
         $_SESSION['user'] = $user;
 

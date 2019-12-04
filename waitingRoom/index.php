@@ -8,9 +8,22 @@
 <body>
 	<div class="container">
 		<?php
+	      try {
+	        $hostname = "localhost";
+	        $dbname = "kahoot";
+	        $username = "admin_kahoot";
+	        $pw = "P@ssw0rd";
+	        $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+	      } catch (PDOException $e) {
+	        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+	        exit;
+	      }
+		?>
+		<?php
 			session_start();
-			if (isset($_POST['gender'])) {
-				$_SESSION['kahoot_id'] = $_POST['gender'];
+			if (isset($_SESSION['kahoot_id'])) {
+				$queryEstadoKahoot = $pdo->prepare("Update kahoot Set active=true Where kahoot_id=".$_SESSION['kahoot_id'].";");
+				$queryEstadoKahoot->execute();
 			}
 		?>
 		<div class="container_pin"><?php require('pinKahoot.php'); ?></div>
