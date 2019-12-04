@@ -21,11 +21,22 @@
 
 
 		<div id="barra-menu">
-			<?php
-				session_start();
-				echo "Bienvenido ".$_SESSION['user'];
-				echo "Id Usuario = ".$_SESSION['userId'];
-			?>
+			<input type="checkbox" class="checkbox" id="menu-toogle"/>
+			<label for="menu-toogle" class="menu-toogle"></label>
+			<nav class="nav">
+			  <a href="#" class="nav__item">Perfil</a>
+			  <a href="#" class="nav__item">Cerrar sesión</a>
+			</nav>
+
+			<div class="identidad">
+				<?php
+					session_start();
+					//echo "Bienvenido ".$_SESSION['user'];
+					//echo "Id Usuario = ".$_SESSION['userId'];
+					$usuario = $_SESSION['user'];
+					echo $usuario;
+				?>
+			</div>
 		</div>
 
 		<div id="main">
