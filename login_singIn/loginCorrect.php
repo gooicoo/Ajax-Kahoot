@@ -42,7 +42,7 @@
 
 		<div id="main">
 			<div id="crear-pregunta">
-				<form class="" action="" method="post">
+				<form class="" action="../creator.php" method="post">
 					<input class="creador-titulo" type="text" name="titulo-kahoot" value="" placeholder="NOMBRE KAHOOT">
 					<input class="enviar-opcion" type="submit" name="" value="CREAR">
 				</form>
