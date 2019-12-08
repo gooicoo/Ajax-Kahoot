@@ -66,10 +66,10 @@ function generatePin() {
     $pin = $row["pin"];
     array_push($pins, $pin);
   }
-  $random_pin = rand(100000, 999999);
+  $random_pin = rand(10000, 99999);
   if (in_array($random_pin, $pins)) {
     while (in_array($random_pin, $pins)) {
-      $random_pin = rand(100000, 999999);
+      $random_pin = rand(10000, 99999);
     }
   }
   return $random_pin;
