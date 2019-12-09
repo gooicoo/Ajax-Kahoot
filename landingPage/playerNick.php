@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>player PIN</title>
-    <link rel="stylesheet" type="text/css" href="./playerPIN.css" media="all">
+    <link rel="stylesheet" type="text/css" href="./CSS/playerPIN.css" media="all">
   </head>
   <body>
     <?php
@@ -22,7 +22,7 @@
     ?>
 
     <div id="contenido">
-      <form class="" action="prueba2.php" method="post">
+      <form class="" action="salaEspera.php" method="post">
 
         <input id="codePin" type="text" name="nickname" placeholder="NICK NAME">
         <input id="submitPin" type="submit" value="ENTRAR">

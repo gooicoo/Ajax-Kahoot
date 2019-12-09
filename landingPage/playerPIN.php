@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>player PIN</title>
-    <link rel="stylesheet" type="text/css" href="./playerPIN.css" media="all">
+    <link rel="stylesheet" type="text/css" href="./CSS/playerPIN.css" media="all">
   </head>
   <body>
     <?php
