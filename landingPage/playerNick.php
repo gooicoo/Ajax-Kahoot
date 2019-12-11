@@ -17,17 +17,17 @@
         echo "Failed to get DB handle: " . $e->getMessage() . "\n";
         exit;
       }
-
-
+      session_start();
+      if ( isset($_POST['pin']) ) {
+        $_SESSION['pin'] = $_POST['pin'];
+      }
     ?>
 
     <div id="contenido">
       <form class="" action="salaEspera.php" method="post">
-
         <input id="codePin" type="text" name="nickname" placeholder="NICK NAME">
         <input id="submitPin" type="submit" value="ENTRAR">
       </form>
-
     </div>
 
 

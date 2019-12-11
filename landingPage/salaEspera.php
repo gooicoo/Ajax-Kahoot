@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Empezando juego</title>
     <link rel="stylesheet" href="./CSS/esperaJugar.css">
+    <meta http-equiv="refresh" content="6;URL=salaEspera.php" >
   </head>
   <body>
     <?php
@@ -18,6 +19,9 @@
          exit;
        }
          session_start();
+         if ( isset($_POST['nickname']) ) {
+           $_SESSION['nickname'] = $_POST['nickname'];
+         }
     ?>
 
     <div class="animacionEspera">
@@ -26,29 +30,50 @@
 
     <div class="datosJugador">
       <?php
-        $query = $pdo -> prepare(" SELECT * FROM kahoot where pin='".$_SESSION['pin']."'; ");
+        $query = $pdo -> prepare(" SELECT * FROM gamer where kahoot_id='".$_SESSION['pin']."'; ");
         $query -> execute();
         $row = $query -> fetch();
 
-        $nickName = $_POST['nickname'];
+        $nombreGamer = $_SESSION['nickname'];
+        $kahootID = $row['kahoot_id'];
 
-        //echo "Pin Kahoot = ".$_SESSION['pin']."<br>";
-        echo " <p class='nombreJugador'> $nickName </p> ";
-        //echo "Kahoot ID = ".$row['kahoot_id'];
+        $valor = 0;
+        echo " <p class='nombreJugador'> $nombreGamer </p> ";
+        while ($row) {
+          if ($row['gamer_name'] == $nombreGamer) {
+            $valor = 1;
+          }
+          $row = $query -> fetch();
+        }
 
-        $queryGamer = $pdo -> prepare("INSERT INTO gamer (gamer_name, kahoot_id) values ('".$_POST['nickname']."',".$row['kahoot_id'].");");
-        $queryGamer -> execute();
-        $row = $queryGamer->fetch();
+        if ($valor == 0) {
+          $queryGamer = $pdo -> prepare(" INSERT INTO gamer (gamer_name, kahoot_id) values ('$nombreGamer','$kahootID'); ");
+          $queryGamer -> execute();
+        }
+
       ?>
     </div>
 
+
+
     <div class="esperar">
       <p>esperando para comenzar <span class=puntos></span></p>
-
     </div>
 
 
 
+
+    <?php
+      $querycomprobarJugar = $pdo -> prepare(" SELECT start_game FROM kahoot where pin='".$_SESSION['pin']."'; ");
+      $querycomprobarJugar -> execute();
+      $rowcomprobarJugar = $querycomprobarJugar -> fetch();
+
+      $comporbarEntrar = $rowcomprobarJugar['start_game'];
+      echo $comporbarEntrar;
+      if ($comporbarEntrar==1) {
+        header("Location: ../juegoGamer/juegoGamer.php");
+      }
+    ?>
 
 
 

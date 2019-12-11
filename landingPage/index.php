@@ -17,15 +17,14 @@
          echo "Failed to get DB handle: " . $e->getMessage() . "\n";
          exit;
        }
+       session_start();
     ?>
 
     <div id="contenido">
-      <form class="" method="post">
-
+      <form class="" action="playerNick.php" method="post">
         <input id="codePin" type="text" name="pin" placeholder="CODE KAHOOT">
         <input id="submitPin" type="submit" name="" value="ENTRAR">
       </form>
-
     </div>
 
     <div id="pinIncorrecto">

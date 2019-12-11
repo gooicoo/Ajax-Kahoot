@@ -33,7 +33,7 @@
 				<?php require('gamersActive.php'); ?>
 			</div>
 		</div>
-		<form method="post" action="pruebaGame.php">
+		<form method="post" action="../juegoAdmin/preguntaAdmin.php">
 			<?php require ('enableButton.php');  ?>
 		</form>
 	</div>

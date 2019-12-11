@@ -1,19 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Bungee);
 
 body{
-  animation-name: fondoColor;
-  animation-duration: 15s;
-  animation-iteration-count: infinite;
   background: rgb(247, 142, 86);
   text-align: center;
   font-family: 'Bungee';
   font-size: 40px;
-}
-@keyframes fondoColor {
-  25%  { background: rgb(65, 196, 222); }
-  50%  { background: rgb(140, 199, 63); }
-  75%  { background: rgb(243, 211, 51); }
-  100% { background: rgb(247, 142, 86); }
 }
 
 .datosJugador{
@@ -34,7 +25,7 @@ body{
 #relojArena{
   width: 100%;
   height: auto;
-  animation: rotation 5s infinite linear;
+  animation: rotation 6s infinite linear;
 }
 @-webkit-keyframes rotation {
 		from { transform: rotate(0deg); }
@@ -55,7 +46,7 @@ body{
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
-  animation: ellipsis-dot 3s infinite .3s;
+  animation: ellipsis-dot 2s infinite .2s;
   animation-fill-mode: fowards;
   width: 1.25em;
 }
