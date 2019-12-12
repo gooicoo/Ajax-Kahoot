@@ -30,38 +30,25 @@
 
     <div class="datosJugador">
       <?php
-        $query = $pdo -> prepare(" SELECT * FROM gamer where kahoot_id='".$_SESSION['pin']."'; ");
+        $query = $pdo -> prepare(" SELECT * FROM kahoot where pin='".$_SESSION['pin']."'; ");
         $query -> execute();
         $row = $query -> fetch();
 
         $nombreGamer = $_SESSION['nickname'];
         $kahootID = $row['kahoot_id'];
 
-        $valor = 0;
         echo " <p class='nombreJugador'> $nombreGamer </p> ";
-        while ($row) {
-          if ($row['gamer_name'] == $nombreGamer) {
-            $valor = 1;
-          }
-          $row = $query -> fetch();
-        }
 
-        if ($valor == 0) {
+        if ( isset($_POST['nickname']) ) {
           $queryGamer = $pdo -> prepare(" INSERT INTO gamer (gamer_name, kahoot_id) values ('$nombreGamer','$kahootID'); ");
           $queryGamer -> execute();
         }
-
       ?>
     </div>
-
-
 
     <div class="esperar">
       <p>esperando para comenzar <span class=puntos></span></p>
     </div>
-
-
-
 
     <?php
       $querycomprobarJugar = $pdo -> prepare(" SELECT start_game FROM kahoot where pin='".$_SESSION['pin']."'; ");
@@ -69,7 +56,7 @@
       $rowcomprobarJugar = $querycomprobarJugar -> fetch();
 
       $comporbarEntrar = $rowcomprobarJugar['start_game'];
-      echo $comporbarEntrar;
+
       if ($comporbarEntrar==1) {
         header("Location: ../juegoGamer/juegoGamer.php");
       }
