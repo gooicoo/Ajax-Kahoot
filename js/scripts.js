@@ -100,6 +100,8 @@ function cleanQuestionForm() {
   removeElementDOM(form);
   var addButton = document.getElementById("buttonAddQuestion");
   removeElementDOM(addButton);
+  var containerImg = document.getElementById("containerImg");
+  removeElementDOM(containerImg);
   var textArea = document.getElementById("question_name");
   textArea.value = "";
   var sliderTime = document.getElementById("sliderTime");
