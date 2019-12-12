@@ -1,0 +1,58 @@
+@import url(https://fonts.googleapis.com/css?family=Bungee);
+
+body{
+  background-color: #DDD;
+  margin: 0;
+  padding: 0;
+}
+.numeroPregunta{
+  width: 100%;
+  height: 100px;
+  background-color: #23b2e1;
+  text-align: center;
+  line-height: 100px;
+  font-size: 60px;
+  font-family: 'Bungee';
+  color: #FFF;
+}
+
+.textoPregunta{
+  width: 95%;
+  height: 500px;
+  background-color: #FFF;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 18px #888888;
+}
+.opciones{
+  width: 95%;
+  height: 500px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+.respuestas{
+  width: 100%;
+  height: 300px;
+  margin: 5px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 40px;
+  font-family: 'Bungee';
+}
+.caja0{
+  border: 5px solid #EE2115;
+  background-color: rgb(238,33,21,0.3);
+}
+.caja1{
+  border: 5px solid #1581ee;
+  background-color: rgb(21,129,238,0.3);
+}
+.caja2{
+  border: 5px solid #2dee15;
+  background-color: rgb(45,238,21,0.3);
+}
+.caja3{
+  border: 5px solid #ee8115;
+  background-color: rgb(238,129,21,0.3);
+}

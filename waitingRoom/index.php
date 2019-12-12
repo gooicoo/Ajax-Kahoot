@@ -25,6 +25,8 @@
 				$queryEstadoKahoot = $pdo->prepare("Update kahoot Set active=true Where kahoot_id=".$_SESSION['kahoot_id'].";");
 				$queryEstadoKahoot->execute();
 			}
+
+			$_SESSION['countPregunta'] = 0;
 		?>
 		<div class="container_pin"><?php require('pinKahoot.php'); ?></div>
 		<div class="jugadores">

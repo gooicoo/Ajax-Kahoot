@@ -26,16 +26,32 @@
     ?>
 
     <?php
-      $queryPregunta = $pdo -> prepare(" select question_name , orden from question where kahoot_id='".$_SESSION['kahoot_id']."'; ");
-      $queryPregunta -> execute();
-      $row = $queryPregunta -> fetch();
+      //$_SESSION['countPregunta'] = 0;
+      $_SESSION['countPregunta'] += 1;
+      $countPregunta = $_SESSION['countPregunta'];
 
-      $orden = $row['orden'];
-      $pregunta = $row['question_name'];
+      $query = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."'; ");
+      $query -> execute();
+      $row = $query -> fetch();
+
+      $totalPreguntas = 0;
+      while ($row) {
+        $totalPreguntas ++;
+        $row = $query -> fetch();
+      }
+
+      $queryPregunta = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$countPregunta."; ");
+      $queryPregunta -> execute();
+      $rowPregunta = $queryPregunta -> fetch();
+
+      $orden = $rowPregunta['orden'];
+      $pregunta = $rowPregunta['question_name'];
+
+      $_SESSION['question_id'] = $rowPregunta['question_id'];
     ?>
 
     <div class="numeroPregunta">
-      <?php echo 'PREGUNTA '.$orden; ?>
+      <?php echo 'PREGUNTA '.$orden.'/'.$totalPreguntas; ?>
     </div>
 
     <div class="textoPregunta">
@@ -44,7 +60,16 @@
 
 
     <div class="botonNext">
-      <input class="next" type="button" name="" value="CONTINUAR">
+
+      <form class="" action="preguntaAdmin.php" method="post">
+        <input class="next" type="submit" name="" value="CONTINUAR">
+      </form>
+      <?php
+        if ($countPregunta>$totalPreguntas) {
+          header("Location: ./finJuegoAdmin.php");
+        }
+      ?>
+
     </div>
 
   </body>
