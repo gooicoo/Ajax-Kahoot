@@ -7,6 +7,7 @@
   <head>
     <meta charset="utf-8">
     <title>Añadir pregunta</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript">
