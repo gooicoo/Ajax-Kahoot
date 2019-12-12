@@ -73,3 +73,13 @@ INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `l
 INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`) VALUES (NULL, '2', 'Wordpress', '12345', '0', '20');
 
 INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`) VALUES (NULL, '2', 'Sport', '98989', '0', '20');
+
+
+
+
+
+-------------------------------------------------------------
+
+------ MODIFICACIONES TABLAS ------
+
+ALTER TABLE kahoot ADD start_game BOOLEAN NOT NULL;
