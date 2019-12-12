@@ -1,0 +1,2 @@
+sudo chown www-data imatges_kahoot
+sudo chmod 755 imatges_kahoot/

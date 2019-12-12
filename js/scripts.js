@@ -25,7 +25,16 @@ function createQuestionForm(answersCount) {
   }
 
   var main = document.getElementsByTagName("main")[0];
-  var form = createElementDOM("form", "", main, ["action=creator.php", "method=post", "id=sendQuestion"]);
+  var questionContainer = document.getElementById("questionContainer");
+  var containerImg = createElementDOM("div", "", questionContainer, ["id=containerImg"]);
+  var preview = createElementDOM("img", "", containerImg, ["src=https://cdn4.iconfinder.com/data/icons/flatified/128/photos.png","id=preview"]);
+  var loadImage = createElementDOM("button", "Cargar imagen", containerImg, ["type=button"]);
+  loadImage.addEventListener('click', function() {
+    var browse = document.getElementsByName("uploadedImage")[0];
+    browse.click();
+  });
+
+  var form = createElementDOM("form", "", main, ["action=creator.php", "method=post", "id=sendQuestion", "enctype=multipart/form-data"]);
   createElementDOM("input", "", form, ["type=text", "name=questionName"]);
   for (var i = 0; i < answersCount; i++) {
     createElementDOM("input", "", form, ["type=text", "name=answer"+(i+1)]);
@@ -36,6 +45,11 @@ function createQuestionForm(answersCount) {
   createElementDOM("input", "", form, ["type=text", "name=validOptions"]);
   createElementDOM("input", "", form, ["type=text", "name=questionType"]);
   createElementDOM("input", "", form, ["type=text", "name=numberAnswers"]);
+
+  var uploadedImage = createElementDOM("input", "", form, ["type=file", "name=uploadedImage"]);
+  uploadedImage.addEventListener("change", function() {
+    uploadImage(this);
+  });
   createElementDOM("input", "", form, ["type=submit"]);
 
   var right = document.getElementsByClassName("right")[0];
@@ -86,6 +100,8 @@ function cleanQuestionForm() {
   removeElementDOM(form);
   var addButton = document.getElementById("buttonAddQuestion");
   removeElementDOM(addButton);
+  var containerImg = document.getElementById("containerImg");
+  removeElementDOM(containerImg);
   var textArea = document.getElementById("question_name");
   textArea.value = "";
   var sliderTime = document.getElementById("sliderTime");
@@ -170,6 +186,22 @@ function createKahoot() {
   // Cambiar de página
   var url = window.location.href;
   window.location.href = url.split("/")[0]+"/Ajax-Kahoot/login_singIn/loginCorrect.php";
+}
+
+function uploadImage(input) {
+  var reader;
+
+  if (input.files && input.files[0]) {
+    reader = new FileReader();
+
+    reader.onload = function(e) {
+      var img = document.getElementById("preview");
+      img.setAttribute('src', e.target.result);
+      img.setAttribute('style', 'width: 100%;')
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
 }
 
 function createElementDOM(tagElement, text, parent, attributes) {

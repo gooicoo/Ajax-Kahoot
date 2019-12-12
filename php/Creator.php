@@ -37,6 +37,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["questionName"]) and i
       $answer = new Answer(-1, $_POST["answer".($i+1)], $transactionInfo[1], $i+1, $correct);
       addAnswer($answer);
     }
+    
+    // Imagen
+    if (isset($_FILES["uploadedImage"]) and $_FILES["uploadedImage"]["error"] == 0) {
+      $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+      $filename = $_FILES["uploadedImage"]["name"];
+      $filetype = $_FILES["uploadedImage"]["type"];
+      $filesize = $_FILES["uploadedImage"]["size"];
+
+      $ext = pathinfo($filename, PATHINFO_EXTENSION);
+      if (in_array($filetype, $allowed)) {
+        if (!file_exists("imatges_kahoot/".$filename)) {
+          move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], "imatges_kahoot/".$filename);
+        } else {
+          echo "<script>alert('Error al guardar la imagen');</script>";
+        }
+      }
+    }
     echo "<script>alert('Pregunta añadida correctamente!');</script>";
   } else {
     echo "<script>alert('Ha habido un error al añadir la pregunta');</script>";
