@@ -8,9 +8,10 @@ include("model/Kahoot.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["titulo-kahoot"])) {
   $_SESSION["titulo-kahoot"] = $_POST["titulo-kahoot"];
   $pin = generatePin();
-  $active = 1; //true
+  $active = 0; //true
   $limit_users = 8; //número máximo de jugadores
-  $kahoot = new Kahoot(-1, $_SESSION["userId"], $_SESSION["titulo-kahoot"], $pin, $active, $limit_users, 0);
+  $start_game = 0;
+  $kahoot = new Kahoot(-1, $_SESSION["userId"], $_SESSION["titulo-kahoot"], $pin, $active, $limit_users, $start_game);
   $transactionInfo = addKahoot($kahoot);
   if ($transactionInfo[0]) {
     $_SESSION["kahoot_id"] = $transactionInfo[1];
@@ -94,12 +95,13 @@ function generatePin() {
 
 function addKahoot($kahoot) {
   $pdo = getConnection();
-  $query = $pdo->prepare("INSERT INTO kahoot (user_id, kahoot_name, pin, active, limit_users) VALUES (?, ?, ?, ?, ?)");
+  $query = $pdo->prepare("INSERT INTO kahoot (user_id, kahoot_name, pin, active, limit_users,start_game) VALUES (?, ?, ?, ?, ?, ?)");
   $query->bindParam(1, $kahoot->user_id);
   $query->bindParam(2, $kahoot->kahoot_name);
   $query->bindParam(3, $kahoot->pin);
   $query->bindParam(4, $kahoot->active);
   $query->bindParam(5, $kahoot->limit_users);
+  $query->bindParam(6, $kahoot->start_game);
   $success = $query->execute();
   if ($success) {
     $return = array();
