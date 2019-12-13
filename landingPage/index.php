@@ -21,7 +21,7 @@
     ?>
 
     <div id="contenido">
-      <form class="" action="playerNick.php" method="post">
+      <form class="" method="post">
         <input id="codePin" type="text" name="pin" placeholder="CODE KAHOOT">
         <input id="submitPin" type="submit" name="" value="ENTRAR">
       </form>

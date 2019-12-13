@@ -83,3 +83,4 @@ INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `l
 ------ MODIFICACIONES TABLAS ------
 
 ALTER TABLE kahoot ADD start_game BOOLEAN NOT NULL;
+ALTER TABLE users ADD profile_image varchar(200);

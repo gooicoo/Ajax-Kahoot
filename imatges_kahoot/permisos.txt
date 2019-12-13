@@ -1,2 +1,5 @@
 sudo chown www-data imatges_kahoot
 sudo chmod 755 imatges_kahoot/
+
+sudo chown www-data imatges_kahoot/imatges_profile
+sudo chmod 777 imatges_profile/

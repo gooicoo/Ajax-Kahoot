@@ -25,8 +25,9 @@
 			<label for="menu-toogle" class="menu-toogle"></label>
 
 			<nav class="nav">
-			  <a href="#" class="nav__item">Perfil</a>
-			  <a href="#" class="nav__item">Cerrar sesión</a>
+				<a href="#" class="nav__item">Perfil</a>
+			  <a href="editarPerfil.php" class="nav__item">Editar perfil</a>
+			  <a href="index.php" class="nav__item">Cerrar sesión</a>
 			</nav>
 
 			<div class="identidad">
@@ -34,8 +35,15 @@
 					session_start();
 					//echo "Bienvenido ".$_SESSION['user'];
 					//echo "Id Usuario = ".$_SESSION['userId'];
+
 					$usuario = $_SESSION['user'];
+					$user = $_SESSION['userId'];
+					$query = $pdo -> prepare("SELECT * FROM users where user_id=$user;");
+					$query -> execute();
+					$row = $query -> fetch();
+					echo "<img src='../imatges_kahoot/imatges_profile/".$row['profile_image']."' style='width: 70px; height: 60px; margin-right:5px;'>";
 					echo $usuario;
+
 				?>
 			</div>
 		</div>
@@ -47,6 +55,7 @@
 					<input class="enviar-opcion" type="submit" name="" value="CREAR">
 				</form>
 			</div>
+			
 
 			<hr id="separador">
 
