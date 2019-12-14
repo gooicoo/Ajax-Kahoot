@@ -35,6 +35,7 @@
             $queryId->execute();
             $rowId = $queryId->fetch();
             $_SESSION['userId'] = $rowId['user_id'];
+            $_SESSION['email'] = $row['email'];
             header("Location: ./loginCorrect.php");
             exit;
         }else{

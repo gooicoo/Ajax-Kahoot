@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center form_container effect5" style="width: 100%;">
+                <div class="d-flex justify-content-center form_container effect5 column" style="width: 100%;">
                     <form method="post">
                         <div class="input-group mb-3">
                             <div class="input-group-append">
@@ -37,12 +37,19 @@
                         </div>
                     <div class="d-flex justify-content-center mt-3 login_container">
                         <button type="sumbit" class="btn login_btn">Login</button>
+
                     </div>
                     </form>
+                    
+                </div>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links" >
+                        Do you want to play a kahoot? <a href="../landingPage/index.php" class="ml-2">Play!</a>
+                    </div>
                 </div>
         
                 <div class="mt-4">
-                    <div class="d-flex justify-content-center links">
+                    <div class="d-flex justify-content-center links" style="margin-top: -16px;">
                         Don't have an account? <a href="registrarUsuario_PHP.php" class="ml-2">Sign Up!</a>
                     </div>
                 </div>

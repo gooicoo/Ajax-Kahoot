@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-12-2019 a las 17:29:25
+-- Tiempo de generación: 14-12-2019 a las 12:14:15
 -- Versión del servidor: 5.7.28-0ubuntu0.19.04.2
--- Versión de PHP: 7.2.24-0ubuntu0.19.04.1
+-- Versión de PHP: 7.2.25-1+ubuntu19.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -76,20 +76,20 @@ CREATE TABLE `kahoot` (
   `kahoot_name` varchar(30) NOT NULL,
   `pin` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `limit_users` int(11) NOT NULL
+  `limit_users` int(11) NOT NULL,
+  `start_game` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `kahoot`
 --
 
-INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`) VALUES
-(1, 1, 'Deportes', 43564, 0, 20),
-(2, 1, 'Wordpress', 24223, 0, 20),
-(3, 2, 'Wordpress', 12345, 0, 20),
-(4, 2, 'Sport', 98989, 0, 20),
-(5, 3, 'Futbol', 42455, 1, 5),
-(6, 3, 'Tecnologia', 29019, 1, 8);
+INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `limit_users`, `start_game`) VALUES
+(1, 1, 'Deportes', 43564, 0, 20, 0),
+(2, 1, 'Wordpress', 24223, 0, 20, 0),
+(3, 2, 'Wordpress', 12345, 0, 20, 0),
+(4, 2, 'Sport', 98989, 0, 20, 0),
+(5, 3, 'Futbol', 42455, 0, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -103,19 +103,20 @@ CREATE TABLE `question` (
   `kahoot_id` int(11) DEFAULT NULL,
   `time` int(11) NOT NULL,
   `orden` int(11) NOT NULL,
-  `question_points` int(11) NOT NULL
+  `question_points` int(11) NOT NULL,
+  `image_path` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `question`
 --
 
-INSERT INTO `question` (`question_id`, `question_name`, `kahoot_id`, `time`, `orden`, `question_points`) VALUES
-(1, 'El Granada está en Primera División?', 5, 30, 1, 600),
-(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 5, 20, 2, 1000),
-(3, 'El Madrid ganó la última Champions League?', 5, 20, 3, 750),
-(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 5, 25, 4, 750),
-(5, 'El Valencia ganó la última Copa del Rey?', 5, 15, 5, 450);
+INSERT INTO `question` (`question_id`, `question_name`, `kahoot_id`, `time`, `orden`, `question_points`, `image_path`) VALUES
+(1, 'El Granada está en Primera División?', 5, 30, 1, 600, NULL),
+(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 5, 20, 2, 1000, NULL),
+(3, 'El Madrid ganó la última Champions League?', 5, 20, 3, 750, NULL),
+(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 5, 25, 4, 750, NULL),
+(5, 'El Valencia ganó la última Copa del Rey?', 5, 15, 5, 450, NULL);
 
 -- --------------------------------------------------------
 
@@ -155,17 +156,18 @@ CREATE TABLE `users` (
   `user_name` varchar(30) NOT NULL,
   `password` varchar(512) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `user_type` varchar(10) NOT NULL
+  `user_type` varchar(10) NOT NULL,
+  `profile_image` varchar(200) DEFAULT 'img_defecto.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `password`, `email`, `user_type`) VALUES
-(1, 'Joel', '6bfcc4026b5f162799a6dc8305c09db9c1674ac616bd5c7422a45fbb6d0816ac163047c47a1f426f4f4c6b5b5042c671eabc4fdc7310fd5b183eef59dc274604', 'joel@gmail.com', 'admin'),
-(2, 'Didac', '959bb4493362054abfdcfb0ec24b87c0c745cca282eb8a071ae39ed65199986789e011b7e336dd4d75ea2229b57f82dd346beff6d5409d4e93dcad0e088e5e55', 'didac@gmail.com', 'gamer'),
-(3, 'Marc', '93cc945e4eb44677799a68b6a0cd6615b1ca9b8d525812e7f6efc84853a6dc5d5a086bff517db5b7f21f04e6cccdd7b75f7b120545e163009a5af81b1aef657e', 'marc@gmail.com', 'gamer');
+INSERT INTO `users` (`user_id`, `user_name`, `password`, `email`, `user_type`, `profile_image`) VALUES
+(1, 'Joel', '6bfcc4026b5f162799a6dc8305c09db9c1674ac616bd5c7422a45fbb6d0816ac163047c47a1f426f4f4c6b5b5042c671eabc4fdc7310fd5b183eef59dc274604', 'joel@gmail.com', 'admin', 'img_defecto.png'),
+(2, 'Didac', '959bb4493362054abfdcfb0ec24b87c0c745cca282eb8a071ae39ed65199986789e011b7e336dd4d75ea2229b57f82dd346beff6d5409d4e93dcad0e088e5e55', 'didac@gmail.com', 'gamer', 'img_defecto.png'),
+(3, 'Marc', '93cc945e4eb44677799a68b6a0cd6615b1ca9b8d525812e7f6efc84853a6dc5d5a086bff517db5b7f21f04e6cccdd7b75f7b120545e163009a5af81b1aef657e', 'marc@gmail.com', 'gamer', 'img_defecto.png');
 
 --
 -- Índices para tablas volcadas
@@ -241,7 +243,7 @@ ALTER TABLE `gamer`
 -- AUTO_INCREMENT de la tabla `kahoot`
 --
 ALTER TABLE `kahoot`
-  MODIFY `kahoot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `kahoot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `question`

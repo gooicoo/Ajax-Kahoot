@@ -77,7 +77,7 @@ body,html {
 	position: relative;
 	height: 170px;
 	width: 170px;
-	top: -100px;
+	top: -200px;
 	border-radius: 50%;
 	background-color:rgb(65, 196, 222);
 	animation: 14s ease 0s infinite alternate none running colorChange;
@@ -95,7 +95,7 @@ body,html {
               0 16px 16px rgba(0, 0, 0, .1);
 }
 .form_container {
-	margin-top: -70px;
+	margin-top: -180px;
 }
 
 .login_btn {
