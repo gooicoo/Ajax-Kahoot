@@ -46,7 +46,7 @@ body{
   overflow: hidden;
   display: inline-block;
   vertical-align: bottom;
-  animation: ellipsis-dot 2s infinite .2s;
+  animation: ellipsis-dot 3s infinite .3s;
   animation-fill-mode: fowards;
   width: 1.25em;
 }

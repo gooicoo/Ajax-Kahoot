@@ -21,17 +21,29 @@
     ?>
 
     <?php
-      $queryPregunta = $pdo -> prepare(" select orden from question where kahoot_id='".$_SESSION['kahoot_id']."'; ");
-      $queryPregunta -> execute();
-      $rowNumPreg = $queryPregunta -> fetch();
-
-      $orden = $rowNumPreg['orden'];
+      $query = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."'; ");
+      $query -> execute();
+      $row = $query -> fetch();
 
       $totalPreguntas = 0;
-      while ($rowNumPreg) {
+      while ($row) {
         $totalPreguntas ++;
-        $rowNumPreg = $queryPregunta -> fetch();
+        $row = $query -> fetch();
       }
+
+      $_SESSION['countRespuesta'] += 1;
+      $countRespuesta = $_SESSION['countRespuesta'];
+      $queryPregunta = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$countRespuesta."; ");
+      $queryPregunta -> execute();
+      $rowPregunta = $queryPregunta -> fetch();
+
+      $orden = $rowPregunta['orden'];
+
+      $queryRespuestas = $pdo -> prepare(" select * from answer where question_id='".$_SESSION['question_id']."'; ");
+      $queryRespuestas -> execute();
+      $rowRespuestas = $queryRespuestas -> fetch();
+
+
     ?>
 
 
@@ -43,10 +55,6 @@
     <div class="opciones">
       <form class="" action="opcionSelec.php" method="post">
         <?php
-          $queryRespuestas = $pdo -> prepare(" select * from answer where question_id='".$_SESSION['question_id']."'; ");
-          $queryRespuestas -> execute();
-          $rowRespuestas = $queryRespuestas -> fetch();
-
           $cont=0;
           while ($rowRespuestas) {
             echo "<input class='respuestas caja".$cont."' type='submit' name='respuesta' value='".$rowRespuestas['answer_name']."'></input>";
@@ -58,7 +66,11 @@
 
     </div>
 
-
+    <?php
+      if ($countRespuesta>$totalPreguntas) {
+        header("Location: ./finJuegoGamer.php");
+      }
+    ?>
 
 
   </body>

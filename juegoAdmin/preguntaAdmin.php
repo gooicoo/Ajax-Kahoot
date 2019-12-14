@@ -21,15 +21,13 @@
 
     ?>
     <?php
+      // ----- jugador entra en la partida ----- //
       $queryGamer = $pdo -> prepare(" update kahoot set start_game=1 where pin='".$_SESSION['pin']."'; ");
       $queryGamer -> execute();
     ?>
 
     <?php
-      //$_SESSION['countPregunta'] = 0;
-      $_SESSION['countPregunta'] += 1;
-      $countPregunta = $_SESSION['countPregunta'];
-
+      // ----- mostrar numero de pregunta en la parte superior ----- //
       $query = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."'; ");
       $query -> execute();
       $row = $query -> fetch();
@@ -39,6 +37,10 @@
         $totalPreguntas ++;
         $row = $query -> fetch();
       }
+
+      // ----- mostrar texto de la pregunta ----- //
+      $_SESSION['countPregunta'] += 1;
+      $countPregunta = $_SESSION['countPregunta'];
 
       $queryPregunta = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$countPregunta."; ");
       $queryPregunta -> execute();
@@ -61,7 +63,7 @@
 
     <div class="botonNext">
 
-      <form class="" action="preguntaAdmin.php" method="post">
+      <form class="" action="siguientePregunta.php" method="post">
         <input class="next" type="submit" name="" value="CONTINUAR">
       </form>
       <?php

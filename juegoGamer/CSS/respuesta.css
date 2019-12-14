@@ -1,0 +1,37 @@
+/* ------- pagina respuesta correcta ------- */
+
+.bodyCorrect{
+  background-color: #31ad3b;
+}
+.correct{
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  margin-top: 8%;
+  background-image: url('./../IMG/correct.png');
+  background-size: 580px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+
+
+
+
+
+/* ------- pagina respuesta incorrecta ------- */
+
+.bodyIncorrect{
+  background-color: #ad3131;
+}
+.incorrect{
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  margin-top: 8%;
+  background-image: url('./../IMG/incorrect.png');
+  background-size: 580px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

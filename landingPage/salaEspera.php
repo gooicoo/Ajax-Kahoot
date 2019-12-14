@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Empezando juego</title>
     <link rel="stylesheet" href="./CSS/esperaJugar.css">
-    <meta http-equiv="refresh" content="6;URL=salaEspera.php" >
+    <meta http-equiv="refresh" content="3;URL=salaEspera.php" >
   </head>
   <body>
     <?php
@@ -58,8 +58,10 @@
       $comporbarEntrar = $rowcomprobarJugar['start_game'];
 
       if ($comporbarEntrar==1) {
+        $_SESSION['countRespuesta'] = 0;
         header("Location: ../juegoGamer/juegoGamer.php");
       }
+
     ?>
 
 

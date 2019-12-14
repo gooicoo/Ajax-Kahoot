@@ -1,0 +1,28 @@
+@import url(https://fonts.googleapis.com/css?family=Bungee);
+
+body{
+  background-color: rgb(65, 196, 222);
+  font-family: 'Bungee';
+  font-size: 140px;
+}
+
+.cuentaAtras{
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  margin-top: 20%;
+  text-align: center;
+}
+
+.numeros:after {
+  content: "5";
+  animation: cuanta-atras 5s infinite .5s;
+  animation-fill-mode: fowards;
+}
+@keyframes cuanta-atras {
+  20%  { content: "4"; }
+  40%  { content: "3"; }
+  60%  { content: "2"; }
+  80%  { content: "1"; }
+  100% { content: "0"; }
+}
