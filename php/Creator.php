@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["titulo-kahoot"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["questionName"]) and isset($_POST["questionTime"]) and isset($_POST["questionOrder"]) and isset($_POST["questionPoints"]) and isset($_POST["validOptions"]) and isset($_POST["questionType"]) and isset($_POST["numberAnswers"])) {
-  $question = new Question(-1, $_POST["questionName"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"]);
+  $question = new Question(-1, $_POST["questionName"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"], NULL);
   $transactionInfo = addQuestion($question);
   if ($transactionInfo[0]) {
     $validOptions = explode(",", $_POST["validOptions"]);
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["questionName"]) and i
       $answer = new Answer(-1, $_POST["answer".($i+1)], $transactionInfo[1], $i+1, $correct);
       addAnswer($answer);
     }
-    
+
     // Imagen
     if (isset($_FILES["uploadedImage"]) and $_FILES["uploadedImage"]["error"] == 0) {
       $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
@@ -49,10 +49,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["questionName"]) and i
       $ext = pathinfo($filename, PATHINFO_EXTENSION);
       if (in_array($filetype, $allowed)) {
         if (!file_exists("imatges_kahoot/".$filename)) {
-          move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], "imatges_kahoot/".$filename);
+          $path = "imatges_kahoot/".$filename;
+          move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], $path);
         } else {
-          echo "<script>alert('Error al guardar la imagen');</script>";
+          $filename = date("YmdHis".$_SESSION['userId']);
+          $extension = array_search($filetype, $allowed);
+          $path = "imatges_kahoot/".$filename.".".$extension;
+          move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], $path);
         }
+        updateTextFieldFromTable("question", "image_path", $path, "question_id", $transactionInfo[1]);
       }
     }
     echo "<script>alert('Pregunta añadida correctamente!');</script>";
@@ -124,8 +129,8 @@ function getQuestions($kahoot_id) {
     $time = $row["time"];
     $orden = $row["orden"];
     $question_points = $row["question_points"];
-
-    $question = new Question($question_id, $question_name, $kahoot_id, $time, $orden, $question_points);
+    $image_path = $row["image_path"];
+    $question = new Question($question_id, $question_name, $kahoot_id, $time, $orden, $question_points, $image_path);
     array_push($questions, $question);
   }
   return $questions;
@@ -179,6 +184,12 @@ function addAnswer($answer) {
   $query->bindParam(2, $answer->question_id);
   $query->bindParam(3, $answer->orden);
   $query->bindParam(4, $answer->correct);
+  $query->execute();
+}
+
+function updateTextFieldFromTable($table, $field, $newValue, $fieldID, $id) {
+  $pdo = getConnection();
+  $query = $pdo->prepare("UPDATE $table SET $field = '$newValue' WHERE $fieldID = $id");
   $query->execute();
 }
  ?>

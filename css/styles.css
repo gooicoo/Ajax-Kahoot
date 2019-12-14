@@ -46,6 +46,20 @@
 }
 
 
+/* Checkbox personalizado */
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #3cb766;
+  border-color: #3cb766;
+}
+
+.round input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
 
 /* The container must be positioned relative: */
 .custom-select {
@@ -413,7 +427,7 @@ aside > div > div > button {
   margin: auto;
 }
 
-#barra-menu > .button-container > button:focus, aside > div > div > button:focus, #question_name:focus, .right > button:focus, #containerImg > button {
+#barra-menu > .button-container > button:focus, aside > div > div > button:focus, #question_name:focus, .right > button:focus, #containerImg > button:focus {
   outline: none;
   box-shadow: 0 0 3pt 2pt darkseagreen;
 }

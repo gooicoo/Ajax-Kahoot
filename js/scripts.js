@@ -13,15 +13,22 @@ function createQuestionForm(answersCount) {
       var li = createElementDOM("li", "", container, []);
       var value = (i == 0) ? "Verdadero" : "Falso";
       createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "value="+value, "readonly=", "style=pointer-events: none;"]);
+      var round = createElementDOM("div", "", li, ["class=round"]);
+      var input = createElementDOM("input", "", round, ["type=radio", "id=radio"+(i+1), "name=gender"]);
+      if (i == 0) {
+        input.checked = true;
+      }
+      var label = createElementDOM("label", "", round, ["for=radio"+(i+1)]);
+    }
+    else if (type == "MULTIPLE_CHOICE") {
+      var li = createElementDOM("li", "", container, []);
+      createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Pregunta "+(i+1)]);
+      var round = createElementDOM("div", "", li, ["class=round"]);
+      var input = createElementDOM("input", "", round, ["class=checkbox", "type=checkbox", "id=checkbox"+(i+1)]);
+      var label = createElementDOM("label", "", round, ["for=checkbox"+(i+1)]);
     }
     // ... los demás tipos de pregunta
 
-    var round = createElementDOM("div", "", li, ["class=round"]);
-    var input = createElementDOM("input", "", round, ["type=radio", "id=radio"+(i+1), "name=gender"]);
-    if (i == 0) {
-      input.checked = true;
-    }
-    var label = createElementDOM("label", "", round, ["for=radio"+(i+1)]);
   }
 
   var main = document.getElementsByTagName("main")[0];
@@ -78,12 +85,29 @@ function changeQuestionForm() {
       if (confirmed) {
         cleanQuestionForm();
       }
-    } else {
-      createNewQuestion("Nueva pregunta", ["class=newQuestion", "style=border-color: red; word-wrap: break-word;"]);
     }
     if (confirmed) {
       if (type == "TRUE/FALSE") {
         createQuestionForm(2);
+        createNewQuestion("Nueva pregunta", ["class=newQuestion", "style=border-color: red; word-wrap: break-word;"]);
+      }
+      else if (type == "MULTIPLE_CHOICE") {
+        var numberAnswers = prompt("Cuantas posibles respuestas tendrá esta pregunta?");
+        if (numberAnswers != null && numberAnswers != "") {
+          if (!isNaN(numberAnswers)) {
+            var integerValue = parseInt(numberAnswers);
+            if (integerValue > 0) {
+              createQuestionForm(integerValue);
+              createNewQuestion("Nueva pregunta", ["class=newQuestion", "style=border-color: red; word-wrap: break-word;"]);
+            } else {
+              alert("Introduce un número de respuestas válido!");
+            }
+          } else {
+            alert("Introduce un número de respuestas válido!");
+          }
+        } else {
+          alert("Introduce un número de respuestas para poder crear la pregunta!");
+        }
       }
       // ... los demás tipos de pregunta
     }
@@ -113,7 +137,9 @@ function cleanQuestionForm() {
   var pointsValue = document.getElementById("pointsValue");
   pointsValue.innerText = "1000";
   var lastNewQuestion = document.getElementsByClassName("newQuestion")[0];
-  lastNewQuestion.innerText = "Nueva pregunta";
+  removeElementDOM(lastNewQuestion.parentNode);
+  var questionContainer = document.getElementById("questionContainer");
+  questionContainer.setAttribute("style", "display: none;");
 }
 
 function getQuestionType() {
@@ -155,19 +181,17 @@ function validateNewQuestion() {
     var points = document.getElementById("sliderPoints").value;
     data.push(points);
 
-    var radioButtons = document.getElementsByName("gender");
-    var selected = "";
-    for (var i = 0; i < radioButtons.length; i++) {
-      if (radioButtons[i].checked) {
-        selected += (i+1)+",";
-      }
-    }
-    if (selected.length > 0) {
-      selected = selected.substr(0, selected.length-1);
-    }
-    data.push(selected);
-
     var type = getQuestionType();
+    if (type == "MULTIPLE_CHOICE") {
+      var checkboxes = document.getElementsByClassName("checkbox");
+      var checked = getCheckedAnswers(checkboxes);
+      data.push(checked);
+    } else {
+      var radioButtons = document.getElementsByName("gender");
+      var checked = getCheckedAnswers(radioButtons);
+      data.push(checked);
+    }
+
     data.push(type);
     data.push(answersCount);
 
@@ -182,10 +206,25 @@ function validateNewQuestion() {
   }
 }
 
+function getCheckedAnswers(elements) {
+  var checked = "";
+  for (var i = 0; i < elements.length; i++) {
+    if (elements[i].checked) {
+      checked += (i+1)+",";
+    }
+  }
+  if (checked.length > 0) {
+    checked = checked.substr(0, checked.length-1);
+  }
+  return checked;
+}
+
 function createKahoot() {
   // Cambiar de página
   var url = window.location.href;
-  window.location.href = url.split("/")[0]+"/Ajax-Kahoot/login_singIn/loginCorrect.php";
+  url.split("creator.php");
+  var host = url.split("/")[0];
+  window.location.href = host+"login_singIn/loginCorrect.php";
 }
 
 function uploadImage(input) {
