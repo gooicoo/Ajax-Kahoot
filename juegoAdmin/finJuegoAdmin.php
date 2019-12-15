@@ -25,6 +25,10 @@
       $queryGamer = $pdo -> prepare(" update kahoot set start_game=0 where pin='".$_SESSION['pin']."'; ");
       $queryGamer -> execute();
 
+          // -- reiniciar estado juego [active] -- //
+      $queryGamer = $pdo -> prepare(" update kahoot set active=0 where pin='".$_SESSION['pin']."'; ");
+      $queryGamer -> execute();
+
           // -- reiniciar siguiente pregunta [next] -- //
       $queryGamer = $pdo -> prepare(" update question set next=0 where kahoot_id='".$_SESSION['kahoot_id']."'; ");
       $queryGamer -> execute();

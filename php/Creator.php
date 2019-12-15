@@ -11,7 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["titulo-kahoot"])) {
   $active = 0; //true
   $limit_users = 8; //número máximo de jugadores
   $start_game = 0;
-  $kahoot = new Kahoot(-1, $_SESSION["userId"], $_SESSION["titulo-kahoot"], $pin, $active, $limit_users, $start_game);
+  $next = 0;
+  $kahoot = new Kahoot(-1, $_SESSION["userId"], $_SESSION["titulo-kahoot"], $pin, $active, $limit_users, $start_game, $next);
   $transactionInfo = addKahoot($kahoot);
   if ($transactionInfo[0]) {
     $_SESSION["kahoot_id"] = $transactionInfo[1];

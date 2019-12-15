@@ -14,9 +14,9 @@
 
 <?php
 
-  //Hardcode kahoot_id=2
   $queryPin = $pdo->prepare("SELECT pin FROM kahoot where kahoot_id=".$_SESSION['kahoot_id'].";");
     $queryPin->execute();
     $rowPin = $queryPin->fetch();
+    $_SESSION['pin'] = $rowPin['pin'];
     echo "#".$rowPin['pin'];
 ?>

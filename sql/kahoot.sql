@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-12-2019 a las 12:14:15
+-- Tiempo de generación: 15-12-2019 a las 16:21:45
 -- Versión del servidor: 5.7.28-0ubuntu0.19.04.2
 -- Versión de PHP: 7.2.25-1+ubuntu19.04.1
 
@@ -104,19 +104,20 @@ CREATE TABLE `question` (
   `time` int(11) NOT NULL,
   `orden` int(11) NOT NULL,
   `question_points` int(11) NOT NULL,
-  `image_path` text
+  `image_path` text,
+  `next` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `question`
 --
 
-INSERT INTO `question` (`question_id`, `question_name`, `kahoot_id`, `time`, `orden`, `question_points`, `image_path`) VALUES
-(1, 'El Granada está en Primera División?', 5, 30, 1, 600, NULL),
-(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 5, 20, 2, 1000, NULL),
-(3, 'El Madrid ganó la última Champions League?', 5, 20, 3, 750, NULL),
-(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 5, 25, 4, 750, NULL),
-(5, 'El Valencia ganó la última Copa del Rey?', 5, 15, 5, 450, NULL);
+INSERT INTO `question` (`question_id`, `question_name`, `kahoot_id`, `time`, `orden`, `question_points`, `image_path`, `next`) VALUES
+(1, 'El Granada está en Primera División?', 5, 30, 1, 600, NULL, 0),
+(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 5, 20, 2, 1000, NULL, 0),
+(3, 'El Madrid ganó la última Champions League?', 5, 20, 3, 750, NULL, 0),
+(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 5, 25, 4, 750, NULL, 0),
+(5, 'El Valencia ganó la última Copa del Rey?', 5, 15, 5, 450, NULL, 0);
 
 -- --------------------------------------------------------
 

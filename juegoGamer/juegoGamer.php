@@ -37,6 +37,7 @@
       $queryPregunta -> execute();
       $rowPregunta = $queryPregunta -> fetch();
 
+      $_SESSION['question_id'] = $rowPregunta['question_id'];
       $orden = $rowPregunta['orden'];
 
       $queryRespuestas = $pdo -> prepare(" select * from answer where question_id='".$_SESSION['question_id']."'; ");

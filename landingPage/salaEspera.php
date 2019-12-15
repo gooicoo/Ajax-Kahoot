@@ -36,6 +36,7 @@
 
         $nombreGamer = $_SESSION['nickname'];
         $kahootID = $row['kahoot_id'];
+        $_SESSION['kahoot_id'] = $kahootID;
 
         echo " <p class='nombreJugador'> $nombreGamer </p> ";
 
