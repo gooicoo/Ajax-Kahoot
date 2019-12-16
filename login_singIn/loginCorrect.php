@@ -25,7 +25,6 @@
 			<label for="menu-toogle" class="menu-toogle"></label>
 
 			<nav class="nav">
-				<a href="#" class="nav__item">Perfil</a>
 			  <a href="editarPerfil.php" class="nav__item">Editar perfil</a>
 			  <a href="index.php" class="nav__item">Cerrar sesión</a>
 			</nav>
@@ -55,7 +54,7 @@
 					<input class="enviar-opcion" type="submit" name="" value="CREAR">
 				</form>
 			</div>
-			
+
 
 			<hr id="separador">
 

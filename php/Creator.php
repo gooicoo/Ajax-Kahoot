@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["titulo-kahoot"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["questionName"]) and isset($_POST["questionTime"]) and isset($_POST["questionOrder"]) and isset($_POST["questionPoints"]) and isset($_POST["validOptions"]) and isset($_POST["questionType"]) and isset($_POST["numberAnswers"])) {
-  $question = new Question(-1, $_POST["questionName"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"], NULL);
+  $question = new Question(-1, $_POST["questionName"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"], NULL, 0);
   $transactionInfo = addQuestion($question);
   if ($transactionInfo[0]) {
     $validOptions = explode(",", $_POST["validOptions"]);
@@ -131,7 +131,8 @@ function getQuestions($kahoot_id) {
     $orden = $row["orden"];
     $question_points = $row["question_points"];
     $image_path = $row["image_path"];
-    $question = new Question($question_id, $question_name, $kahoot_id, $time, $orden, $question_points, $image_path);
+    $next = $row['next'];
+    $question = new Question($question_id, $question_name, $kahoot_id, $time, $orden, $question_points, $image_path, $next);
     array_push($questions, $question);
   }
   return $questions;
@@ -158,12 +159,14 @@ function getAnswers($question_id) {
 function addQuestion($question) {
   try {
     $pdo = getConnection();
-    $query = $pdo->prepare("INSERT INTO question (question_name, kahoot_id, time, orden, question_points) VALUES (?, ?, ?, ?, ?)");
+    $query = $pdo->prepare("INSERT INTO question (question_name, kahoot_id, time, orden, question_points, image_path, next) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $query->bindParam(1, $question->question_name);
     $query->bindParam(2, $question->kahoot_id);
     $query->bindParam(3, $question->time);
     $query->bindParam(4, $question->orden);
     $query->bindParam(5, $question->question_points);
+    $query->bindParam(6, $question->image_path);
+    $query->bindParam(7, $question->next);
     $success = $query->execute();
     if ($success) {
       $return = array();
