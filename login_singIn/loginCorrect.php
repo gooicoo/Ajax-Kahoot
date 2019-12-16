@@ -19,6 +19,20 @@
 
 		?>
 
+		<?php 
+			session_start();
+			$user_id = $_SESSION['userId'];
+			$query = $pdo->prepare("SELECT token from token WHERE user_id = $user_id  and type = 'TOS' and expired=1");
+			$success = $query->execute();
+	    if ($success) {
+	      $row = $query->fetch();
+				if (!$row) {
+					header("Location: editarPerfil.php");
+				}
+	    } else {
+				header("Location: .");
+			}
+		 ?>
 
 		<div id="barra-menu">
 			<input type="checkbox" class="checkbox" id="menu-toogle"/>
@@ -31,7 +45,6 @@
 
 			<div class="identidad">
 				<?php
-					session_start();
 					//echo "Bienvenido ".$_SESSION['user'];
 					//echo "Id Usuario = ".$_SESSION['userId'];
 

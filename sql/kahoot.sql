@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-12-2019 a las 16:21:45
+-- Tiempo de generación: 16-12-2019 a las 13:13:48
 -- Versión del servidor: 5.7.28-0ubuntu0.19.04.2
 -- Versión de PHP: 7.2.25-1+ubuntu19.04.1
 
@@ -160,6 +160,15 @@ CREATE TABLE `token` (
   `expired` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `token`
+--
+
+INSERT INTO `token` (`token_id`, `token`, `user_id`, `type`, `expired`) VALUES
+(1, '5a29f1cfde5b89cac4e2ea5634393fd1', 1, 'TOS', 1),
+(2, '4bcd653812a9080b6c151fc97dc94132', 2, 'TOS', 1),
+(3, '7a7a7b75392471f2c5f77587e7b3c0fe', 3, 'TOS', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -289,7 +298,7 @@ ALTER TABLE `selected`
 -- AUTO_INCREMENT de la tabla `token`
 --
 ALTER TABLE `token`
-  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
