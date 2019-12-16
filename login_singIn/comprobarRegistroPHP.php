@@ -73,7 +73,7 @@
 
     function sendWelcomeMail($to, $name, $token) {
       $domain = "keepcalm.cf";
-      $link = "http://".$domain."/Ajax-Kahoot/login_singIn/forgotPassword.php?token=".$token;
+      $link = "http://".$domain."/Ajax-Kahoot/login_singIn/acceptTOS.php?token=".$token;
 
       $subject = "Bienvenido a AJAX-Kahoot!";
       $txt = "<html><h2>Bienvenido $name,</h2></br>".
