@@ -88,12 +88,12 @@
 				            echo "<span id='rojo'>Email ya existente</span>";
 				        }else{
 				        	if ($img != "img_defecto.jpg") {
-								echo "holaaaaaaaa";
+								//echo "holaaaaaaaa";
 			                    $dir_subida = '../imatges_kahoot/imatges_profile/';
 			                    $origen=$_FILES["image"]["tmp_name"];
 			                    @move_uploaded_file($origen,$dir_subida.$img);
 	                		}
-	                		echo "holaa";
+	                		//echo "holaa";
 	                		$_SESSION['user'] = $name;
 	                		$_SESSION['email'] = $email;
 	                		$query = $pdo->prepare("UPDATE users SET user_name ='".$name."', email='".$email."' ,profile_image='".$img."' WHERE user_id =".$_SESSION['userId'].";");

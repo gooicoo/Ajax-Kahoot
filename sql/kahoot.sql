@@ -149,6 +149,20 @@ CREATE TABLE `selected` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `token`
+--
+
+CREATE TABLE `token` (
+  `token_id` int(11) NOT NULL,
+  `token` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` varchar(5) NOT NULL,
+  `expired` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -219,6 +233,13 @@ ALTER TABLE `selected`
   ADD KEY `answer_id` (`answer_id`);
 
 --
+-- Indices de la tabla `token`
+--
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`token_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -263,6 +284,12 @@ ALTER TABLE `ranking`
 --
 ALTER TABLE `selected`
   MODIFY `selected_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `token`
+--
+ALTER TABLE `token`
+  MODIFY `token_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -311,6 +338,12 @@ ALTER TABLE `ranking`
 ALTER TABLE `selected`
   ADD CONSTRAINT `selected_ibfk_1` FOREIGN KEY (`gamer_id`) REFERENCES `gamer` (`gamer_id`),
   ADD CONSTRAINT `selected_ibfk_2` FOREIGN KEY (`answer_id`) REFERENCES `answer` (`answer_id`);
+
+--
+-- Filtros para la tabla `token`
+--
+ALTER TABLE `token`
+  ADD CONSTRAINT `token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

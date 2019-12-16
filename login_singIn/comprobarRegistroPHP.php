@@ -56,9 +56,37 @@
                 $query->execute();
                 $row = $query->fetch();
 
+                $user_id = $pdo->lastInsertId();
+
+                // Generar el token
+                $token = bin2hex(openssl_random_pseudo_bytes(16));
+                sendWelcomeMail($email, $user, $token);
+
+                // Guardar el token en la base de datos
+                $query = $pdo->prepare("INSERT INTO token (token, user_id, type, expired) VALUES ('$token', $user_id, 'TOS', 0)");
+                $row = $query->execute();
                 header("Location: ./index.php");
                 exit;
             }
         }
+    }
+
+    function sendWelcomeMail($to, $name, $token) {
+      $domain = "keepcalm.cf";
+      $link = "http://".$domain."/Ajax-Kahoot/login_singIn/forgotPassword.php?token=".$token;
+
+      $subject = "Bienvenido a AJAX-Kahoot!";
+      $txt = "<html><h2>Bienvenido $name,</h2></br>".
+            "<p>Gracias por registrarte en AJAX-Kahoot. Para poder hacer uso de nuestra web debes aceptar los términos de servicio del siguiente enlace:</p></br>".
+            "<a href='$link'>$link</a></br>".
+            "<h3>¡Que disfrutes creando muchos Kahoots!</h3></br>".
+            "</p>El equipo AJAX-Kahoot</p></html>";
+
+      // To send HTML mail, the Content-type header must be set
+      $headers[] = 'MIME-Version: 1.0';
+      $headers[] = 'Content-type: text/html; charset=iso-8859-1';
+      $headers[] = "From: AJAX-Kahoot <ajax-kahoot@playajaxkahoot.free>";
+
+      mail($to, $subject, $txt, implode("\r\n", $headers));
     }
 ?>

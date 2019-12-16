@@ -54,6 +54,11 @@
                     </div>
                 </div>
         
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links" style="margin-top: -16px;">
+                        Forgot your password? <a href="forgotPassword.php" class="ml-2">Click here</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
