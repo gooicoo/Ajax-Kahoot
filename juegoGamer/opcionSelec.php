@@ -32,7 +32,7 @@
 
 
      <?php
-       $queryPreguntaNext = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$_SESSION['countPregunta']."; ");
+       $queryPreguntaNext = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$_SESSION['countRespuesta']."; ");
        $queryPreguntaNext -> execute();
        $rowPreguntaNext = $queryPreguntaNext -> fetch();
        $pregunaNext = $rowPreguntaNext['next'];
