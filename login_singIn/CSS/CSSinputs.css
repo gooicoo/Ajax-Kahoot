@@ -1,0 +1,40 @@
+.botones_kahoot{
+  animation-name: reducir;
+  animation-duration: 0.5s;
+  width: 100px;
+  height: 70px;
+  border-radius: 50px;
+  box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.75);
+  margin: 20px;
+  border: 0;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.botones_kahoot:hover{
+  animation-name: ampliar;
+  animation-duration: 0.5s;
+  width: 200px;
+  background-image: url();
+}
+@keyframes ampliar {
+  0%   {width: 100px}
+  100% {width: 200px}
+}
+@keyframes reducir {
+  100% {width: 100px}
+  0%   {width: 200px}
+}
+.boton_play{
+  background-image: url('../imgInputs/jugar.png');
+  background-color: #28DA8C;
+}
+
+.boton_editar{
+  background-image: url('../imgInputs/editar.png');
+  background-color: #3092D9;
+}
+.boton_eliminar{
+  background-image: url('../imgInputs/borrar.png');
+  background-color: #BC2D3D;
+}

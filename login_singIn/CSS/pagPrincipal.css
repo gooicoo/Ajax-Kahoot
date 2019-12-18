@@ -165,7 +165,7 @@ input[type="radio"]:checked+label {
 
 
 .opcion-jugar{
-  position: absolute;
+  position: relative;
   bottom: 30px;
   right: 40px;
 }

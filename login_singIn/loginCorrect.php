@@ -2,6 +2,8 @@
 <html>
 	<head>
 		<link rel=stylesheet href="./CSS/pagPrincipal.css">
+		<link rel=stylesheet href="./CSS/CSSinputs.css">
+		<script type="text/javascript" src="../js/scriptsEventsInputs.js"></script>
 	</head>
 
 	<body>
@@ -34,7 +36,7 @@
 			}
 		 ?>
 
-		<div id="barra-menu">
+		<div id="barra-menu" style="z-index: 100;">
 			<input type="checkbox" class="checkbox" id="menu-toogle"/>
 			<label for="menu-toogle" class="menu-toogle"></label>
 
@@ -77,6 +79,34 @@
 				<div class="lista-juegos">
 					<form method="post">
 						<?php
+							if(isset($_POST['gender']) and isset($_POST['jugar'])){
+								session_start();
+								$_SESSION['kahoot_id'] = $_POST['gender'];
+								header('Location: ../waitingRoom/index.php');
+							}elseif(isset($_POST['gender']) and isset($_POST['eliminar'])){
+								$queryQuestion = $pdo -> prepare(" SELECT * FROM question where kahoot_id=".$_POST['gender']."; ");
+								$queryQuestion -> execute();
+								$rowQuestion = $queryQuestion -> fetch();
+								while ($rowQuestion) {
+									$queryEliminarAnswer = $pdo -> prepare('DELETE FROM answer where question_id='.$rowQuestion['question_id'].';');
+									$queryEliminarAnswer -> execute();
+									$queryEliminarQuestion = $pdo -> prepare('DELETE FROM question where question_id='.$rowQuestion['question_id'].';');
+									$queryEliminarQuestion -> execute();
+									$rowQuestion = $queryQuestion->fetch();
+							}
+							$queryEliminarKahoot = $pdo -> prepare('DELETE FROM kahoot where kahoot_id='.$_POST['gender'].';');
+							$success = $queryEliminarKahoot -> execute();
+							}elseif(isset($_POST['gender']) and isset($_POST['editar'])){
+								$queryDatosKahoot = $pdo -> prepare(" SELECT * FROM kahoot where kahoot_id=".$_POST['gender']."; ");
+								$queryDatosKahoot -> execute();
+								$rowDatos = $queryDatosKahoot -> fetch();
+								session_start();
+								$_SESSION['kahoot_id'] = $_POST['gender'];
+								$_SESSION["titulo-kahoot"] = $rowDatos['kahoot_name'];
+								header('Location: ../creator.php');
+							}
+
+
 							$user = $_SESSION['userId'];
 							$query = $pdo -> prepare(" SELECT kahoot_name,kahoot_id FROM kahoot where user_id=$user; ");
 							$query -> execute();
@@ -89,13 +119,10 @@
 								$row = $query->fetch();
 								$contador ++;
 							}
-							if(isset($_POST['gender'])){
-								session_start();
-								$_SESSION['kahoot_id'] = $_POST['gender'];
-								header('Location: ../waitingRoom/index.php');
-							}
 						?>
-						<input class="enviar-opcion opcion-jugar" type="submit" value="JUGAR">
+						<input name="jugar" id="JUGAR" class="opcion-jugar botones_kahoot boton_play" type="submit" value="" style="margin-top: 50px; margin-left: 50px;" />
+	    				<input name="editar" id="EDITAR" class="opcion-jugar botones_kahoot boton_editar" type="submit" value=""/>
+	    				<input name="eliminar" id="ELIMINAR" class="opcion-jugar botones_kahoot boton_eliminar" type="submit" value="" />
 					</form>
 
 				</div>
