@@ -30,7 +30,7 @@
         $totalPreguntas ++;
         $row = $query -> fetch();
       }
-
+    
       $_SESSION['countRespuesta'] += 1;
       $countRespuesta = $_SESSION['countRespuesta'];
       $queryPregunta = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$countRespuesta."; ");

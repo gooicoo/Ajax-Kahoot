@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
+    <title>LOGIN</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel=stylesheet href="./CSS/loginKahoot_CSS.css">
@@ -40,20 +41,20 @@
 
                     </div>
                     </form>
-                    
+
                 </div>
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links" >
                         Do you want to play a kahoot? <a href="../landingPage/index.php" class="ml-2">Play!</a>
                     </div>
                 </div>
-        
+
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links" style="margin-top: -16px;">
                         Don't have an account? <a href="registrarUsuario_PHP.php" class="ml-2">Sign Up!</a>
                     </div>
                 </div>
-        
+
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links" style="margin-top: -16px;">
                         Forgot your password? <a href="forgotPassword.php" class="ml-2">Click here</a>

@@ -24,8 +24,8 @@ body{
 
 .volver{
 	display:block;
-  	margin-left: auto;
-  	margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 	margin: auto;
 	border: solid black 4px;
 	font-family: 'Bungee';
@@ -43,5 +43,18 @@ body{
               0 16px 16px rgba(0, 0, 0, .2),
               8px 32px 32px rgba(0, 0, 0, .15),
               8px 64px 64px rgba(0, 0, 0, .15);
+
+}
+
+
+
+@media screen and (max-width:500px) and (max-height:800px) {
+  .finJuego{
+    margin-top: 35%;
+    font-size: 43px;
+  }
+  .volver{
+    font-size: 6vw;
+  }
 
 }

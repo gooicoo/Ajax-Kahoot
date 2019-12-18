@@ -29,3 +29,11 @@ body{
 		from { transform: rotate(0deg); }
 		to { transform: rotate(359deg); }
 }
+
+
+
+
+
+@media screen and (max-width:500px) and (min-width:375px) and (max-height:800px) and (min-height:667px){
+
+}
