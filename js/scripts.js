@@ -41,7 +41,7 @@ function createQuestionForm(answersCount) {
     browse.click();
   });
 
-  var form = createElementDOM("form", "", main, ["action=creator.php", "method=post", "id=sendQuestion", "enctype=multipart/form-data"]);
+  var form = createElementDOM("form", "", main, ["method=post", "id=sendQuestion", "enctype=multipart/form-data"]);
   createElementDOM("input", "", form, ["type=text", "name=questionName"]);
   for (var i = 0; i < answersCount; i++) {
     createElementDOM("input", "", form, ["type=text", "name=answer"+(i+1)]);
@@ -73,7 +73,15 @@ function createNewQuestion(name, attributes) {
   createElementDOM("button", "X", li, []);
 }
 
+
+function removeAllElements(a){
+  a.remove();
+}
+
 function changeQuestionForm() {
+  if (document.getElementById('questionContainer2')!= null) {
+    removeAllElements(document.getElementById('questionContainer2'));
+  }
   var type = getQuestionType();
   if (type == 0) {
     alert("Selecciona un tipo de pregunta!!");

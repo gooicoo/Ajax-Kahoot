@@ -93,9 +93,15 @@
 									$queryEliminarQuestion = $pdo -> prepare('DELETE FROM question where question_id='.$rowQuestion['question_id'].';');
 									$queryEliminarQuestion -> execute();
 									$rowQuestion = $queryQuestion->fetch();
-							}
+								}
+							$queryEliminarGamers = $pdo -> prepare('DELETE FROM gamer where kahoot_id='.$_POST['gender'].';');
+							$queryEliminarGamers -> execute();
+
+
+
 							$queryEliminarKahoot = $pdo -> prepare('DELETE FROM kahoot where kahoot_id='.$_POST['gender'].';');
-							$success = $queryEliminarKahoot -> execute();
+
+							$queryEliminarKahoot -> execute();
 							}elseif(isset($_POST['gender']) and isset($_POST['editar'])){
 								$queryDatosKahoot = $pdo -> prepare(" SELECT * FROM kahoot where kahoot_id=".$_POST['gender']."; ");
 								$queryDatosKahoot -> execute();
@@ -103,7 +109,7 @@
 								session_start();
 								$_SESSION['kahoot_id'] = $_POST['gender'];
 								$_SESSION["titulo-kahoot"] = $rowDatos['kahoot_name'];
-								header('Location: ../creator.php');
+								header('Location: ../editarKahoot.php');
 							}
 
 
@@ -120,9 +126,9 @@
 								$contador ++;
 							}
 						?>
-						<input name="jugar" id="JUGAR" class="opcion-jugar botones_kahoot boton_play" type="submit" value="" style="margin-top: 50px; margin-left: 50px;" />
-	    				<input name="editar" id="EDITAR" class="opcion-jugar botones_kahoot boton_editar" type="submit" value=""/>
-	    				<input name="eliminar" id="ELIMINAR" class="opcion-jugar botones_kahoot boton_eliminar" type="submit" value="" />
+						<input name="jugar" id="JUGAR" class="opcion-jugar botones_kahoot boton_play" type="submit" value="" style="margin-top: 50px; margin-left: 50px; color: black;" />
+	    				<input name="editar" id="EDITAR" class="opcion-jugar botones_kahoot boton_editar" type="submit" value="" style="color: black;"/>
+	    				<input name="eliminar" id="ELIMINAR" class="opcion-jugar botones_kahoot boton_eliminar" type="submit" value="" style="color: black;" />
 					</form>
 
 				</div>
