@@ -1,20 +1,36 @@
 <?php
-  if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["password1"]) and isset($_POST["token"]) and isset($_POST["user_id"])) {
-    updatePassword($_POST["password1"], $_POST["user_id"]);
-    updateToken($_POST["token"]);
-    header("Location: .");
-  }
-
-  if ($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET["token"])) {
-    $token = $_GET["token"];
-    $result = tokenExists($token);
-    if (!$result) {
-      header("Location: .");
+  if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["oldPassword"]) and isset($_POST["password1"]) and isset($_POST["token"]) and isset($_POST["user_id"])) {
+    $correct = checkPassword($_POST['oldPassword'], $_POST['user_id']);
+    if ($correct) {
+      updatePassword($_POST["password1"], $_POST["user_id"]);
+      updateToken($_POST["token"]);
+      $alert = '<div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Tu contraseña se ha cambiado correctamente!</strong> La próxima vez que inicies sesión deberás utilizar esta contraseña.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
+      header("Refresh: 1; URL=.");
     } else {
-      $user_id = $result["user_id"];
+      $alert = '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error al cambiar la contraseña:</strong> La última contraseña es incorrecta, vuelve a intentarlo.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>';
     }
   } else {
-    header("Location: .");
+    if ($_SERVER["REQUEST_METHOD"] == "GET" and isset($_GET["token"])) {
+      $token = $_GET["token"];
+      $result = tokenExists($token);
+      if (!$result) {
+        header("Location: .");
+      } else {
+        $user_id = $result["user_id"];
+      }
+    } else {
+      header("Location: .");
+    }
   }
  ?>
 
@@ -24,13 +40,19 @@
     <meta charset="utf-8">
     <title>Change password</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./CSS/changePassword.css">
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", function(event) {
         var form = document.getElementById("passwordForm");
         form.onsubmit = function() {
+          var oldPassword = document.getElementById("oldPassword").value;
+          if (oldPassword == "" || oldPassword == " ") {
+            return false;
+          }
           var pass1 = document.getElementById("password1");
           var pass2 = document.getElementById("password2");
           if (pass1.value == "" || pass2.value == "" || pass1.value == " " || pass2.value == " ") {
@@ -47,6 +69,11 @@
     </script>
   </head>
   <body>
+    <?php
+      if (isset($alert)) {
+        echo $alert;
+      }
+     ?>
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -57,6 +84,7 @@
         <div class="col-sm-6 col-sm-offset-3">
           <p class="text-center">Use the form below to change your password. Your password shouldn't be the same as your username.</p>
           <form method="post" id="passwordForm">
+            <input type="password" class="input-lg form-control" name="oldPassword" id="oldPassword" placeholder="Old password" autocomplete="off">
             <input type="password" class="input-lg form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off">
             <input type="password" class="input-lg form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
             <input type="text" name="token" value="<?=$token;?>" style="display: none;">
@@ -101,5 +129,18 @@
     $pdo = getConnection();
     $query = $pdo->prepare("UPDATE token SET expired = 1 WHERE token = '$token'");
     $query->execute();
+  }
+
+  function checkPassword($password, $user_id) {
+    $pdo = getConnection();
+    $query = $pdo->prepare("SELECT password FROM users WHERE password = sha2(?, 512) and user_id = ?");
+    $query->bindParam(1, $password);
+    $query->bindParam(2, $user_id);
+    $success = $query->execute();
+    $row = $query->fetch();
+    if (!$row) {
+      return false;
+    }
+    return true;
   }
  ?>
