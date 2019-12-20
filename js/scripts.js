@@ -22,7 +22,7 @@ function createQuestionForm(answersCount) {
     }
     else if (type == "MULTIPLE_CHOICE") {
       var li = createElementDOM("li", "", container, []);
-      createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Pregunta "+(i+1)]);
+      createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Respuesta "+(i+1)]);
       var round = createElementDOM("div", "", li, ["class=round"]);
       var input = createElementDOM("input", "", round, ["class=checkbox", "type=checkbox", "id=checkbox"+(i+1)]);
       var label = createElementDOM("label", "", round, ["for=checkbox"+(i+1)]);
