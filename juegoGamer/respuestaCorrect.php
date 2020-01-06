@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <title>respues correcta</title>
     <link rel="stylesheet" href="./CSS/respuesta.css">
-    <meta http-equiv="refresh" content="5;URL=juegoGamer.php" >
+    <meta http-equiv="refresh" content="5;URL=cuentaAtrasRespuesta.php" >
   </head>
 
   <body class="bodyCorrect">
 
     <div class="correct"></div>
 
-
+    
   </body>
 </html>

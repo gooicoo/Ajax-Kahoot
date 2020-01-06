@@ -23,6 +23,10 @@
       if ( isset($_POST['respuesta']) ) {
         $_SESSION['respuesta'] = $_POST['respuesta'];
       }
+      if (isset($_GET['tiempo'])) {
+        $_SESSION['tiempo'] = $_GET['tiempo'];
+      }
+     
      ?>
 
 
@@ -41,12 +45,19 @@
        $queryRespuestaCorrect -> execute();
        $rowRespuestaCorrect = $queryRespuestaCorrect -> fetch();
        $respuestaCorrect = $rowRespuestaCorrect['correct'];
+ 
+      if (isset($_SESSION['tiempo'])) {
+        if ($pregunaNext==1) {
+          unset($_SESSION['tiempo']);
+          header("Location: ./respuestaIncorrect.php");
+        } 
+      }else if ($pregunaNext==1 and $respuestaCorrect==1) {
+        header("Location: ./respuestaCorrect.php");
+      }else if ($pregunaNext==1 and $respuestaCorrect==0) {
+        header("Location: ./respuestaIncorrect.php");
+      }
 
-       if ($pregunaNext==1 and $respuestaCorrect==1) {
-         header("Location: ./respuestaCorrect.php");
-       }else if ($pregunaNext==1 and $respuestaCorrect==0) {
-         header("Location: ./respuestaIncorrect.php");
-       }
+      
 
      ?>
   </body>

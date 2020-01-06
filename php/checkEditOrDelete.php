@@ -10,11 +10,27 @@ try {
    exit;
 }
 if (isset($_POST['eliminarQuestion'])) {
+  $queryGetKahoot = $pdo -> prepare("SELECT * FROM question WHERE question_id=".$_POST['eliminarQuestion'].";");
+  $queryGetKahoot -> execute();
+  $rowKahoot = $queryGetKahoot -> fetch();
+
   $queryEliminarAnswer = $pdo -> prepare("DELETE FROM answer WHERE question_id=".$_POST['eliminarQuestion'].";");
   $queryEliminarAnswer -> execute();
 
   $queryEliminarQuestion = $pdo -> prepare("DELETE FROM question WHERE question_id=".$_POST['eliminarQuestion'].";");
   $queryEliminarQuestion -> execute();
+
+  $queryGetQuestions = $pdo -> prepare("SELECT * FROM question WHERE kahoot_id=".$rowKahoot['kahoot_id'].";"); 
+  $contador = 1;
+  $queryGetQuestions -> execute();
+  $rowQuestion = $queryGetQuestions -> fetch();
+  while ($rowQuestion) {
+    $queryAnswersUpdate = $pdo -> prepare("UPDATE question SET orden=".$contador." WHERE question_id=".$rowQuestion['question_id'].";");
+    $queryAnswersUpdate -> execute();
+    $contador++;
+    $rowQuestion = $queryGetQuestions -> fetch();
+  }
+  header("Location: editarKahoot.php");
 }elseif(isset($_POST['editOn']) and isset($_POST['questionId'])) {
   $questionId = $_POST['questionId'];
   $contador = 1;

@@ -60,7 +60,7 @@
 
       if ($comporbarEntrar==1) {
         $_SESSION['countRespuesta'] = 0;
-        header("Location: ../juegoGamer/juegoGamer.php");
+        header("Location: ../juegoGamer/cuentaAtrasRespuesta.php");
       }
 
     ?>

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Juego Gamer</title>
+    <script src="js/cuentaAtrasQuestion.js"></script>
     <link rel="stylesheet" href="./CSS/style.css">
   </head>
   <body>
@@ -51,8 +52,9 @@
 
 
     <div class="numeroPregunta">
-      <?php echo 'PREGUNTA '.$orden.'/'.$totalPreguntas; ?>
+      <?php echo 'PREGUNTA '.$orden.'/'.$totalPreguntas ;?>
     </div>
+    
     <div class="opciones">
       <form class="" action="opcionSelec.php" method="post">
         <?php
@@ -66,7 +68,7 @@
       </form>
 
     </div>
-
+    <?php echo "<p id='tiempo' class='cuentaAtras' style='margin-top:150px;'>".$rowPregunta['time']."</p>"; ?>
     <?php
       if ($countRespuesta>$totalPreguntas) {
         header("Location: ./finJuegoGamer.php");

@@ -5,6 +5,8 @@ body{
   margin: 0;
   padding: 0;
 }
+
+
 .numeroPregunta{
   width: 100%;
   height: 100px;
@@ -40,6 +42,14 @@ body{
   font-size: 40px;
   font-family: 'Bungee';
 }
+
+.cuentaAtras{
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+  font-family: 'Bungee';
+}
+
 .caja0{
   border: 5px solid #EE2115;
   background-color: rgb(238,33,21,0.3);
