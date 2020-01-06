@@ -12,7 +12,7 @@
 ?>
 <?php
 
-    if ((isset($_POST['user_name'])) and (isset($_POST['password'])) and (isset($_POST['email']))){
+    if ((isset($_POST['user_name'])) and (isset($_POST['password'])) and (isset($_POST['email'])) and (isset($_POST['type']))){
         if ($_FILES['image']["name"]!="") {
             $nombre = basename($_FILES["image"]["name"]);
         }else{
@@ -21,13 +21,14 @@
         session_start();
         $user = $_POST['user_name'];
         $_SESSION['user'] = $user;
-        $email = $_POST['email']; 
-        $password = $_POST['password']; 
-        singInUser($user,$email,$password,$pdo,$nombre);
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $type = $_POST['type'];
+        singInUser($user,$email,$password,$pdo,$nombre,$type);
     }
 
 
-    function singInUser($user,$email,$password,$pdo,$image){
+    function singInUser($user,$email,$password,$pdo,$image,$type) {
         //Query para comprobar si ya hay un nombre igual en la base de datos.
         $query = $pdo->prepare("SELECT * FROM users where user_name='".$user."';");
         $query2 = $pdo->prepare("SELECT * FROM users where email='".$email."';");
@@ -52,7 +53,7 @@
                     $origen=$_FILES["image"]["tmp_name"];
                     @move_uploaded_file($origen,$dir_subida.$image);
                 }
-                $query = $pdo->prepare("INSERT INTO users (user_name,password,email,user_type,profile_image) VALUES ('".$user."',sha2('".$password."',512),'".$email."','admin','".$image."');");
+                $query = $pdo->prepare("INSERT INTO users (user_name,password,email,user_type,profile_image) VALUES ('".$user."',sha2('".$password."',512),'".$email."','$type','".$image."');");
                 $query->execute();
                 $row = $query->fetch();
 
