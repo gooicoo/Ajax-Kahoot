@@ -21,7 +21,7 @@
 
 		?>
 
-		<?php 
+		<?php
 			session_start();
 			$user_id = $_SESSION['userId'];
 			$query = $pdo->prepare("SELECT token from token WHERE user_id = $user_id  and type = 'TOS' and expired=1");
@@ -126,9 +126,11 @@
 								$contador ++;
 							}
 						?>
-						<input name="jugar" id="JUGAR" class="opcion-jugar botones_kahoot boton_play" type="submit" value="" style="margin-top: 50px; margin-left: 50px; color: black;" />
+						<div class="opciones-botones">
+							<input name="jugar" id="JUGAR" class="opcion-jugar botones_kahoot boton_play" type="submit" value="" style="margin-top: 50px; margin-left: 50px; color: black;" />
 	    				<input name="editar" id="EDITAR" class="opcion-jugar botones_kahoot boton_editar" type="submit" value="" style="color: black;"/>
 	    				<input name="eliminar" id="ELIMINAR" class="opcion-jugar botones_kahoot boton_eliminar" type="submit" value="" style="color: black;" />
+						</div>
 					</form>
 
 				</div>
@@ -137,6 +139,9 @@
 
 		</div>
 
-
+		<?php
+			$queryEstadoKahoot = $pdo->prepare("Update kahoot Set active=false;");
+			$queryEstadoKahoot->execute();
+		?>
 	</body>
 </html>

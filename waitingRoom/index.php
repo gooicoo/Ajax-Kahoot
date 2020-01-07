@@ -38,6 +38,11 @@
 		<form method="post" action="../juegoAdmin/preguntaAdmin.php">
 			<?php require ('enableButton.php');  ?>
 		</form>
+
+		<form method="post" action="./../login_singIn/loginCorrect.php">
+			<button type="sumbit" class="btn">Volver</button>
+		</form>
+
 	</div>
 </body>
 </html>
