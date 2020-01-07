@@ -62,13 +62,16 @@ function createQuestionForm(answersCount) {
   var right = document.getElementsByClassName("right")[0];
   createElementDOM("button", "AÑADIR", right, ["id=buttonAddQuestion", "onclick=validateNewQuestion()"]);
 
+  document.getElementsByTagName("html")[0].setAttribute("style", "height: inherit;");
+  document.getElementsByTagName("body")[0].setAttribute("style", "height: inherit;");
+
   var questionForm = document.getElementById("questionContainer");
   questionForm.setAttribute("style", "display: block;");
 }
 
 function createNewQuestion(name, attributes) {
   var container = document.getElementById("questions");
-  var li = createElementDOM("li", "", container, ["class=clearfix"]);
+  var li = createElementDOM("li", "", container, []);
   var p = createElementDOM("p", name, li, attributes);
   createElementDOM("button", "X", li, []);
 }
@@ -381,4 +384,10 @@ function closeAllSelect(elmnt) {
       x[i].classList.add("select-hide");
     }
   }
+}
+
+function onCreateEditQuestionForm() {
+  addOnUpdateSliderValue('sliderTimeEdit', 'timeValueEdit');
+  addOnUpdateSliderValue('sliderPointsEdit', 'pointsValueEdit');
+  document.getElementsByTagName('main')[0].setAttribute('style', 'width: 70%;');
 }
