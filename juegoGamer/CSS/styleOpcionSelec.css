@@ -23,7 +23,7 @@ body{
 #relojArena{
   width: 100%;
   height: auto;
-  animation: rotation 6s infinite linear;
+  animation: rotation 2s infinite linear;
 }
 @-webkit-keyframes rotation {
 		from { transform: rotate(0deg); }

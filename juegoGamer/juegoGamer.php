@@ -5,8 +5,10 @@
     <title>Juego Gamer</title>
     <script src="js/cuentaAtrasQuestion.js"></script>
     <link rel="stylesheet" href="./CSS/style.css">
+
+
   </head>
-  <body>
+  <body onload="cronoInicio()">
     <?php
       try {
          $hostname = "localhost";
@@ -31,7 +33,7 @@
         $totalPreguntas ++;
         $row = $query -> fetch();
       }
-    
+
       $_SESSION['countRespuesta'] += 1;
       $countRespuesta = $_SESSION['countRespuesta'];
       $queryPregunta = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$countRespuesta."; ");
@@ -54,10 +56,15 @@
     <div class="numeroPregunta">
       <?php echo 'PREGUNTA '.$orden.'/'.$totalPreguntas ;?>
     </div>
-    
+
+      <?php 
+        echo "<p id='tiempo' class='cuentaAtras' style='margin-top:150px;'>".$rowPregunta['time']."</p>";
+      ?>
+
     <div class="opciones">
       <form class="" action="opcionSelec.php" method="post">
         <?php
+          echo '<input id="tiempoContestar" type="hidden" name="tiempoContestar" value='.$rowPregunta["time"].'></input>';
           $cont=0;
           while ($rowRespuestas) {
             echo "<input class='respuestas caja".$cont."' type='submit' name='respuesta' value='".$rowRespuestas['answer_name']."'></input>";
@@ -68,13 +75,12 @@
       </form>
 
     </div>
-    <?php echo "<p id='tiempo' class='cuentaAtras' style='margin-top:150px;'>".$rowPregunta['time']."</p>"; ?>
+
     <?php
       if ($countRespuesta>$totalPreguntas) {
         header("Location: ./finJuegoGamer.php");
       }
     ?>
-
 
   </body>
 </html>

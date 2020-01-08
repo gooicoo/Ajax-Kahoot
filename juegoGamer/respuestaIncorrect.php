@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>respues incorrecta</title>
     <link rel="stylesheet" href="./CSS/respuesta.css">
-    <meta http-equiv="refresh" content="5;URL=cuentaAtrasRespuesta.php" >
+    <meta http-equiv="refresh" content="10;URL=cuentaAtrasRespuesta.php" >
 
   </head>
 
@@ -12,7 +12,6 @@
 
     <div class="incorrect"></div>
 
-
-
   </body>
+
 </html>

@@ -7,6 +7,9 @@ function updateTime() {
 	}else{
 		totalTime-=1;
 		document.getElementById('tiempo').innerHTML = totalTime;
+
+		document.getElementById('tiempoContestar').value = totalTime;
+
 		setTimeout("updateTime()",1000);
 	}
 }
