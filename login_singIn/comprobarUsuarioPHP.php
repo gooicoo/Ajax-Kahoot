@@ -15,7 +15,6 @@
 
 <?php
     if ((isset($_POST['user_name'])) and (isset($_POST['password']))){
-        session_start();
         $user = $_POST['user_name'];
         $_SESSION['user'] = $user;
 

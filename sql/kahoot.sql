@@ -189,9 +189,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `email`, `user_type`, `profile_image`) VALUES
-(1, 'Joel', '6bfcc4026b5f162799a6dc8305c09db9c1674ac616bd5c7422a45fbb6d0816ac163047c47a1f426f4f4c6b5b5042c671eabc4fdc7310fd5b183eef59dc274604', 'joel@gmail.com', 'admin', 'img_defecto.png'),
-(2, 'Didac', '959bb4493362054abfdcfb0ec24b87c0c745cca282eb8a071ae39ed65199986789e011b7e336dd4d75ea2229b57f82dd346beff6d5409d4e93dcad0e088e5e55', 'didac@gmail.com', 'gamer', 'img_defecto.png'),
-(3, 'Marc', '93cc945e4eb44677799a68b6a0cd6615b1ca9b8d525812e7f6efc84853a6dc5d5a086bff517db5b7f21f04e6cccdd7b75f7b120545e163009a5af81b1aef657e', 'marc@gmail.com', 'gamer', 'img_defecto.png');
+(1, 'Joel', '6bfcc4026b5f162799a6dc8305c09db9c1674ac616bd5c7422a45fbb6d0816ac163047c47a1f426f4f4c6b5b5042c671eabc4fdc7310fd5b183eef59dc274604', 'joel@gmail.com', 'PREMIUM', 'img_defecto.png'),
+(2, 'Didac', '959bb4493362054abfdcfb0ec24b87c0c745cca282eb8a071ae39ed65199986789e011b7e336dd4d75ea2229b57f82dd346beff6d5409d4e93dcad0e088e5e55', 'didac@gmail.com', 'PREMIUM', 'img_defecto.png'),
+(3, 'Marc', '93cc945e4eb44677799a68b6a0cd6615b1ca9b8d525812e7f6efc84853a6dc5d5a086bff517db5b7f21f04e6cccdd7b75f7b120545e163009a5af81b1aef657e', 'marc@gmail.com', 'PREMIUM', 'img_defecto.png');
 
 --
 -- Índices para tablas volcadas

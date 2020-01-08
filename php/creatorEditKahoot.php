@@ -3,7 +3,7 @@
     $queryQuestionEdit = $pdo -> prepare("SELECT * FROM question where question_id=".$_POST['question']."; ");
     $queryQuestionEdit -> execute();
     $rowQuestionEdit = $queryQuestionEdit -> fetch();
-    echo '<div id="questionContainer2" class="clearfix" style="display: block;">';
+    echo '<div id="questionContainer2" style="display: block;">';
     echo '<form method="POST" style="display: block;">';
     echo "<p id=nombreP>Nombre pregunta</p>";
     echo '<input type="text" id="question_name" value="'.$rowQuestionEdit['question_name'].'" name="questionName" rows="8" cols="80"></input>';
@@ -41,5 +41,6 @@
     echo "<button class='btnOff' name='editOff' value='off' style='color: white;'>CANCELAR</button>";
     echo '</form>';
     echo "</div>";
+    echo "<script>onCreateEditQuestionForm();</script>";
   }
 ?>
