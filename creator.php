@@ -50,6 +50,7 @@
                   <option value="0">Selecciona un tipo de pregunta:</option>
                   <option value="TRUE/FALSE">Verdadero o falso</option>
                   <option value="MULTIPLE_CHOICE">Selección multiple</option>
+                  <option value="FILL_GAPS">Rellenar huecos</option>
                 </select>
               </div>
             </div>

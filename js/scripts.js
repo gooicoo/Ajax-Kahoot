@@ -27,8 +27,12 @@ function createQuestionForm(answersCount) {
       var input = createElementDOM("input", "", round, ["class=checkbox", "type=checkbox", "id=checkbox"+(i+1)]);
       var label = createElementDOM("label", "", round, ["for=checkbox"+(i+1)]);
     }
-    // ... los demás tipos de pregunta
+    else if (type == "FILL_GAPS") {
+      var li = createElementDOM("li", "", container, []);
+      createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Espacio por rellenar "+(i+1)]);
 
+    }
+    // ... los demás tipos de pregunta
   }
 
   var main = document.getElementsByTagName("main")[0];
@@ -118,6 +122,20 @@ function changeQuestionForm() {
           }
         } else {
           alert("Introduce un número de respuestas para poder crear la pregunta!");
+        }
+      }
+      else if (type == "FILL_GAPS") {
+        var sentence = prompt("Escribe una frase con espacios por rellenar.\nEj: Hoy es _ _ de _, hace un día _");
+        if (sentence.includes("_")) {
+          var numberAnswers = sentence.split('_').length - 1;
+          createQuestionForm(numberAnswers);
+          createNewQuestion("Nueva pregunta", ["class=newQuestion", "style=border-color: red; word-wrap: break-word;"]);
+          var textarea = document.getElementById("question_name");
+          textarea.removeAttribute("placeholder");
+          textarea.setAttribute("readonly", "");
+          textarea.value = sentence;
+        } else {
+          alert("Esta frase no tiene espacios para rellenar. Escribe una frase con el formato correcto.");
         }
       }
       // ... los demás tipos de pregunta
