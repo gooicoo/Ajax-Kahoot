@@ -52,7 +52,8 @@
 
 
     <div class="numeroPregunta">
-      <?php echo 'PREGUNTA '.$orden.'/'.$totalPreguntas ;?>
+      <?php echo '<div style="margin-left: 50px;">PREGUNTA '.$orden.'/'.$totalPreguntas.'</div>';?>
+      <?php echo "<div id='tiempo' style='margin-right: 50px;'>".$rowPregunta['time']."</div>"; ?>
     </div>
     
     <div class="opciones">
@@ -68,7 +69,7 @@
       </form>
 
     </div>
-    <?php echo "<p id='tiempo' class='cuentaAtras' style='margin-top:150px;'>".$rowPregunta['time']."</p>"; ?>
+    
     <?php
       if ($countRespuesta>$totalPreguntas) {
         header("Location: ./finJuegoGamer.php");
