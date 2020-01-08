@@ -58,9 +58,6 @@
       <?php echo "<div id='tiempo' style='margin-right: 50px;'>".$rowPregunta['time']."</div>"; ?>
     </div>
 
-      <?php
-        echo "<p id='tiempo' class='cuentaAtras' style='margin-top:150px;'>".$rowPregunta['time']."</p>";
-      ?>
 
     <div class="opciones">
       <form class="" action="opcionSelec.php" method="post">
