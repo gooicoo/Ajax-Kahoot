@@ -20,13 +20,16 @@
        }
          session_start();
     ?>
+
+
     <?php
-      $queryGamer = $pdo -> prepare(" update question set next=1 where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$_SESSION['countPregunta']."; ");
-      $queryGamer -> execute();
+      if ($_SESSION['countPregunta']>=$_SESSION['totalPreguntas']) {
+        header("Location: ./finJuegoAdmin.php");
+      }
     ?>
 
-
     <div class="cuentaAtras">
+      <p class="text">siguiente pregunta en:</p>
       <p class="num"> <span class="numeros"></span> </p>
     </div>
 

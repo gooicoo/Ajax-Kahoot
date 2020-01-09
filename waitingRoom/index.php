@@ -3,7 +3,7 @@
 <head>
 	<title></title>
 	<link rel=stylesheet href="waitingCSS.css">
-	<meta http-equiv="refresh" content="5;URL=index.php" >
+	<meta http-equiv="refresh" content="2;URL=index.php" >
 </head>
 <body>
 	<div class="container">

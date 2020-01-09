@@ -20,6 +20,30 @@
          session_start();
     ?>
 
+    <div class="finJuego">
+      <h3>Fin del juego</h3>
+
+<!--
+      <h4>Ranking</h4>
+      <?php
+/*        $query = $pdo -> prepare(" select * from gamer where gamer_id=(select gamer_id from ranking where kahoot_id='".$_SESSION['kahoot_id']."') limit 3; ");
+        $query -> execute();
+        $row = $query -> fetch();
+
+        while ($row) {
+          echo $row['gamer_name'];
+          $row = $query -> fetch();
+        }
+*/        
+      ?>
+-->
+
+      <form class="" action="./../login_singIn/loginCorrect.php" method="post">
+        <input class="volver" type="submit" name="" value="Inicio">
+      </form>
+    </div>
+
+
     <?php
           // -- reiniciar juego empezado [start_game] -- //
       $queryGamer = $pdo -> prepare(" update kahoot set start_game=0 where pin='".$_SESSION['pin']."'; ");
@@ -34,22 +58,14 @@
       $queryGamer -> execute();
 
           // -- borrar jugadores partida -- //
+      $queryRanking = $pdo -> prepare(" DELETE FROM ranking WHERE kahoot_id='".$_SESSION['kahoot_id']."'; ");
+      $queryRanking -> execute();
+
       $queryGamer = $pdo -> prepare(" DELETE FROM gamer WHERE kahoot_id='".$_SESSION['kahoot_id']."'; ");
       $queryGamer -> execute();
+
+
     ?>
-
-
-
-    <div class="finJuego">
-      <h3>Fin del juego</h3>
-
-      <form class="" action="./../login_singIn/loginCorrect.php" method="post">
-        <input class="volver" type="submit" name="" value="Inicio">
-      </form>
-    </div>
-
-
-
 
 
   </body>
