@@ -100,6 +100,7 @@ INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `l
 CREATE TABLE `question` (
   `question_id` int(11) NOT NULL,
   `question_name` varchar(150) NOT NULL,
+  `question_type` varchar(20) NOT NULL,
   `kahoot_id` int(11) DEFAULT NULL,
   `time` int(11) NOT NULL,
   `orden` int(11) NOT NULL,
@@ -112,12 +113,12 @@ CREATE TABLE `question` (
 -- Volcado de datos para la tabla `question`
 --
 
-INSERT INTO `question` (`question_id`, `question_name`, `kahoot_id`, `time`, `orden`, `question_points`, `image_path`, `next`) VALUES
-(1, 'El Granada está en Primera División?', 5, 30, 1, 600, NULL, 0),
-(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 5, 20, 2, 1000, NULL, 0),
-(3, 'El Madrid ganó la última Champions League?', 5, 20, 3, 750, NULL, 0),
-(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 5, 25, 4, 750, NULL, 0),
-(5, 'El Valencia ganó la última Copa del Rey?', 5, 15, 5, 450, NULL, 0);
+INSERT INTO `question` (`question_id`, `question_name`, `question_type`, `kahoot_id`, `time`, `orden`, `question_points`, `image_path`, `next`) VALUES
+(1, 'El Granada está en Primera División?', 'TRUE/FALSE', 5, 30, 1, 600, NULL, 0),
+(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 'TRUE/FALSE', 5, 20, 2, 1000, NULL, 0),
+(3, 'El Madrid ganó la última Champions League?', 'TRUE/FALSE', 5, 20, 3, 750, NULL, 0),
+(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 'TRUE/FALSE', 5, 25, 4, 750, NULL, 0),
+(5, 'El Valencia ganó la última Copa del Rey?', 'TRUE/FALSE', 5, 15, 5, 450, NULL, 0);
 
 -- --------------------------------------------------------
 

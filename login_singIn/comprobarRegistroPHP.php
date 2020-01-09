@@ -77,11 +77,11 @@
       $link = "http://".$domain."/Ajax-Kahoot/login_singIn/acceptTOS.php?token=".$token;
 
       $subject = "Bienvenido a AJAX-Kahoot!";
-      $txt = "<html><h2>Bienvenido $name,</h2></br>".
+      $txt = "<html><div style='max-width: 600px;'><h2>Bienvenido $name,</h2></br>".
             "<p>Gracias por registrarte en AJAX-Kahoot. Para poder hacer uso de nuestra web debes aceptar los términos de servicio del siguiente enlace:</p></br>".
             "<a href='$link'>$link</a></br>".
             "<h3>¡Que disfrutes creando muchos Kahoots!</h3></br>".
-            "</p>El equipo AJAX-Kahoot</p></html>";
+            "</p>El equipo AJAX-Kahoot</p></div></html>";
 
       // To send HTML mail, the Content-type header must be set
       $headers[] = 'MIME-Version: 1.0';

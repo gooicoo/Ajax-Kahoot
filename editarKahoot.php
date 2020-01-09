@@ -17,9 +17,6 @@
     <script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", function(event) {
-        var response = <?php echo json_encode(['questions_list' => $questions]); ?>;
-        var questions = response.questions_list;
-        addQuestions(questions);
         createCustomSelect();
         document.addEventListener("click", closeAllSelect);
         addOnTextAreaChange();
@@ -46,16 +43,16 @@
         <aside>
           <div>
             <div>
-              <button type="button" onclick="changeQuestionForm()">NUEVA PREGUNTA</button>
               <div class="custom-select">
                 <select id="types">
                   <option value="0">Selecciona un tipo de pregunta:</option>
                   <option value="TRUE/FALSE">Verdadero o falso</option>
                   <option value="MULTIPLE_CHOICE">Selección multiple</option>
+                  <option value="FILL_GAPS">Rellenar huecos</option>
                 </select>
               </div>
+              <button type="button" onclick="changeQuestionForm()">NUEVA PREGUNTA</button>
             </div>
-            <ul id="questions" style="display: none;"></ul>
             <form method="POST" style="display: block;">
               <?php
               $queryQuestion = $pdo -> prepare(" SELECT * FROM question where kahoot_id=".$_SESSION['kahoot_id']."; ");
@@ -68,6 +65,7 @@
               }
               ?>
             </form>
+            <ul id="questions"></ul>
           </div>
         </aside>
         <main>

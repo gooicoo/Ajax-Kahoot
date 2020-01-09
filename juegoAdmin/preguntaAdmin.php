@@ -12,7 +12,7 @@
          $dbname = "kahoot";
          $username = "admin_kahoot";
          $pw = "P@ssw0rd";
-         $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+         $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname;charset=utf8;","$username","$pw");
        } catch (PDOException $e) {
          echo "Failed to get DB handle: " . $e->getMessage() . "\n";
          exit;

@@ -43,7 +43,7 @@
 			<input type="checkbox" class="checkbox" id="menu-toogle"/>
 			<label for="menu-toogle" class="menu-toogle"></label>
 
-			<nav class="nav">
+			<nav class="navigation">
 			  <a href="editarPerfil.php" class="nav__item">Editar perfil</a>
 			  <a href="index.php" class="nav__item">Cerrar sesión</a>
 			</nav>

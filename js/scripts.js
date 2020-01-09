@@ -30,13 +30,13 @@ function createQuestionForm(answersCount) {
     else if (type == "FILL_GAPS") {
       var li = createElementDOM("li", "", container, []);
       createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Espacio por rellenar "+(i+1)]);
-
     }
     // ... los demás tipos de pregunta
   }
 
   var main = document.getElementsByTagName("main")[0];
   var questionContainer = document.getElementById("questionContainer");
+  questionContainer.setAttribute("qtype", type);
   var containerImg = createElementDOM("div", "", questionContainer, ["id=containerImg"]);
   var preview = createElementDOM("img", "", containerImg, ["src=https://cdn4.iconfinder.com/data/icons/flatified/128/photos.png","id=preview"]);
   var loadImage = createElementDOM("button", "Cargar imagen", containerImg, ["type=button"]);
@@ -66,6 +66,7 @@ function createQuestionForm(answersCount) {
   var right = document.getElementsByClassName("right")[0];
   createElementDOM("button", "AÑADIR", right, ["id=buttonAddQuestion", "onclick=validateNewQuestion()"]);
 
+  // Fix visual
   document.getElementsByTagName("html")[0].setAttribute("style", "height: inherit;");
   document.getElementsByTagName("body")[0].setAttribute("style", "height: inherit;");
 
@@ -77,7 +78,6 @@ function createNewQuestion(name, attributes) {
   var container = document.getElementById("questions");
   var li = createElementDOM("li", "", container, []);
   var p = createElementDOM("p", name, li, attributes);
-  createElementDOM("button", "X", li, []);
 }
 
 
@@ -100,6 +100,9 @@ function changeQuestionForm() {
       if (confirmed) {
         cleanQuestionForm();
       }
+      // Fix visual
+      document.getElementsByTagName("html")[0].setAttribute("style", "height: 100%;");
+      document.getElementsByTagName("body")[0].setAttribute("style", "height: 100%;");
     }
     if (confirmed) {
       if (type == "TRUE/FALSE") {
@@ -157,6 +160,8 @@ function cleanQuestionForm() {
   removeElementDOM(containerImg);
   var textArea = document.getElementById("question_name");
   textArea.value = "";
+  textArea.removeAttribute("readonly");
+  textArea.setAttribute("placeholder", "Nombre de la pregunta");
   var sliderTime = document.getElementById("sliderTime");
   sliderTime.value = 20;
   var sliderPoints = document.getElementById("sliderPoints");
@@ -180,6 +185,12 @@ function getQuestionType() {
 function validateNewQuestion() {
   var answersCount = document.getElementById("answers").getElementsByTagName("li").length;
   var questionOrder = document.getElementById("questions").getElementsByTagName("li").length;
+
+  var altOrder = document.getElementsByClassName("questionRow").length;
+  if (altOrder > 0) {
+    questionOrder = altOrder+1;
+  }
+
   var textArea = document.getElementById("question_name");
 
   var answersFilled = true;
@@ -210,7 +221,7 @@ function validateNewQuestion() {
     var points = document.getElementById("sliderPoints").value;
     data.push(points);
 
-    var type = getQuestionType();
+    var type = document.getElementById("questionContainer").getAttribute("qtype");
     if (type == "MULTIPLE_CHOICE") {
       var checkboxes = document.getElementsByClassName("checkbox");
       var checked = getCheckedAnswers(checkboxes);

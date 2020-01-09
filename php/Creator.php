@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["questionName"]) and i
   }
 
   if ($createQuestion) {
-    $question = new Question(-1, $_POST["questionName"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"], NULL, 0);
+    $question = new Question(-1, $_POST["questionName"], $_POST["questionType"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"], NULL, 0);
     $transactionInfo = addQuestion($question);
     if ($transactionInfo[0]) {
       $validOptions = explode(",", $_POST["validOptions"]);
@@ -159,13 +159,14 @@ function getQuestions($kahoot_id) {
   while ($row = $query -> fetch()) {
     $question_id = $row["question_id"];
     $question_name = $row["question_name"];
+    $question_type = $row["question_type"];
     $kahoot_id = $row["kahoot_id"];
     $time = $row["time"];
     $orden = $row["orden"];
     $question_points = $row["question_points"];
     $image_path = $row["image_path"];
     $next = $row['next'];
-    $question = new Question($question_id, $question_name, $kahoot_id, $time, $orden, $question_points, $image_path, $next);
+    $question = new Question($question_id, $question_name, $question_type, $kahoot_id, $time, $orden, $question_points, $image_path, $next);
     array_push($questions, $question);
   }
   return $questions;
@@ -192,14 +193,15 @@ function getAnswers($question_id) {
 function addQuestion($question) {
   try {
     $pdo = getConnection();
-    $query = $pdo->prepare("INSERT INTO question (question_name, kahoot_id, time, orden, question_points, image_path, next) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $query = $pdo->prepare("INSERT INTO question (question_name, question_type, kahoot_id, time, orden, question_points, image_path, next) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $query->bindParam(1, $question->question_name);
-    $query->bindParam(2, $question->kahoot_id);
-    $query->bindParam(3, $question->time);
-    $query->bindParam(4, $question->orden);
-    $query->bindParam(5, $question->question_points);
-    $query->bindParam(6, $question->image_path);
-    $query->bindParam(7, $question->next);
+    $query->bindParam(2, $question->question_type);
+    $query->bindParam(3, $question->kahoot_id);
+    $query->bindParam(4, $question->time);
+    $query->bindParam(5, $question->orden);
+    $query->bindParam(6, $question->question_points);
+    $query->bindParam(7, $question->image_path);
+    $query->bindParam(8, $question->next);
     $success = $query->execute();
     if ($success) {
       $return = array();

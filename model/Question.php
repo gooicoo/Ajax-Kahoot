@@ -2,6 +2,7 @@
 class Question {
   public $question_id;
   public $question_name;
+  public $question_type;
   public $kahoot_id;
   public $time;
   public $orden;
@@ -9,9 +10,10 @@ class Question {
   public $image_path;
   public $next;
 
-  function __construct($question_id, $question_name, $kahoot_id, $time, $orden, $question_points, $image_path, $next) {
+  function __construct($question_id, $question_name, $question_type, $kahoot_id, $time, $orden, $question_points, $image_path, $next) {
     $this -> question_id = $question_id;
     $this -> question_name = $question_name;
+    $this -> question_type = $question_type;
     $this -> kahoot_id = $kahoot_id;
     $this -> orden = $orden;
     $this -> time = $time;

@@ -119,7 +119,7 @@
 .custom-select {
   height: inherit;
   padding: 0;
-  margin-top: 10px;
+  margin-bottom: 10px;
   position: relative;
   font-family: 'Bungee';
 }
@@ -294,12 +294,12 @@ main {
   margin-block-start: 0;
   margin-block-end: 0;
   width: 100%;
-  margin-right: 5px;
   border-radius: 15px;
   border: 2px solid blue;
   padding: 7.5px;
   padding-left: 3%;
   padding-right: 3%;
+  text-align: center;
 }
 
 #questions > li > button {

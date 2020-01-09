@@ -44,7 +44,6 @@
         <aside>
           <div>
             <div>
-              <button type="button" onclick="changeQuestionForm()">NUEVA PREGUNTA</button>
               <div class="custom-select">
                 <select id="types">
                   <option value="0">Selecciona un tipo de pregunta:</option>
@@ -53,6 +52,7 @@
                   <option value="FILL_GAPS">Rellenar huecos</option>
                 </select>
               </div>
+              <button type="button" onclick="changeQuestionForm()">NUEVA PREGUNTA</button>
             </div>
             <ul id="questions"></ul>
           </div>

@@ -35,7 +35,7 @@ body{
 }
 
 /*---------  estilo para el menu desplegable  -----------*/
-.nav {
+.navigation {
   position: absolute;
   width: 200px;
   height: 100vh;
@@ -75,7 +75,7 @@ body{
 .checkbox {
   display:none;
 }
-.checkbox:checked ~ .nav {
+.checkbox:checked ~ .navigation {
   left:0px;
   position:fixed;
 }
