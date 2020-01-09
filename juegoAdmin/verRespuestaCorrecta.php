@@ -59,11 +59,13 @@
         $lengthResp = count($respuestas);
 
         for ($i=0; $i < $lengthResp; $i++) {
-          $search = "_";
-          $replace = strval($respuestas[$i]);
-          $temp = 1;
-          $pregunta = str_replace("_", $replace, $respuesta, $temp);
+          $needle = "_";
+          $replace = strval($respuestas[0]);
+          $haystack = $pregunta;
+          $pos = strpos($haystack, $needle);
+          $pregunta = substr_replace($haystack, $replace, $pos, strlen($needle));
           $respuesta = $pregunta;
+          array_splice($respuestas, 0, 1);
         }
       } else {
         $respuesta = $_SESSION['respuesta'];
