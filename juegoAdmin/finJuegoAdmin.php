@@ -23,22 +23,27 @@
     <div class="finJuego">
       <h3>Fin del juego</h3>
 
-<!--
-      <h4>Ranking</h4>
-      <?php
-/*        $query = $pdo -> prepare(" select * from gamer where gamer_id=(select gamer_id from ranking where kahoot_id='".$_SESSION['kahoot_id']."') limit 3; ");
-        $query -> execute();
-        $row = $query -> fetch();
-
-        while ($row) {
-          echo $row['gamer_name'];
+      <h4>TOP 3</h4>
+      <div class="ranking">
+        <?php
+          $query = $pdo -> prepare(" select * from gamer where gamer_id=(select gamer_id from ranking where kahoot_id='".$_SESSION['kahoot_id']."') limit 3; ");
+          $query -> execute();
           $row = $query -> fetch();
-        }
-*/        
-      ?>
--->
+          $posicion = 1;
 
-      <form class="" action="./../login_singIn/loginCorrect.php" method="post">
+          while ($row) {
+            if ($posicion==1) {
+              echo '<p class="primero">'.$row['gamer_name'].'</p>';
+            } else {
+              echo $row['gamer_name'];
+            }
+            $posicion = 0;
+            $row = $query -> fetch();
+          }
+        ?>
+      </div>
+
+      <form class="boton" action="./../login_singIn/loginCorrect.php" method="post">
         <input class="volver" type="submit" name="" value="Inicio">
       </form>
     </div>
