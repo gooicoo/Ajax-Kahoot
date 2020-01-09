@@ -10,3 +10,5 @@
 ***
 #### Retrospectivas
  * **[Retrospectiva Sprint 1](https://github.com/gooicoo/Ajax-Kahoot/wiki/Retrospectiva-Sprint-1)**
+ * **[Retrospectiva Sprint 2](https://github.com/gooicoo/Ajax-Kahoot/wiki/Retrospectiva-Sprint-2)**
+ * **[Retrospectiva Sprint 3](https://github.com/gooicoo/Ajax-Kahoot/wiki/Retrospectiva-Sprint-3)**
