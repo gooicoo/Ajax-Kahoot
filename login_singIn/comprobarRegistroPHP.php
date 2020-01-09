@@ -12,7 +12,7 @@
 ?>
 <?php
 
-    if ((isset($_POST['user_name'])) and (isset($_POST['password'])) and (isset($_POST['email']))){
+    if ((isset($_POST['user_name'])) and (isset($_POST['password'])) and (isset($_POST['email'])) and (isset($_POST['type']))){
         if ($_FILES['image']["name"]!="") {
             $nombre = basename($_FILES["image"]["name"]);
         }else{
@@ -21,13 +21,14 @@
         session_start();
         $user = $_POST['user_name'];
         $_SESSION['user'] = $user;
-        $email = $_POST['email']; 
-        $password = $_POST['password']; 
-        singInUser($user,$email,$password,$pdo,$nombre);
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $type = $_POST['type'];
+        singInUser($user,$email,$password,$pdo,$nombre,$type);
     }
 
 
-    function singInUser($user,$email,$password,$pdo,$image){
+    function singInUser($user,$email,$password,$pdo,$image,$type) {
         //Query para comprobar si ya hay un nombre igual en la base de datos.
         $query = $pdo->prepare("SELECT * FROM users where user_name='".$user."';");
         $query2 = $pdo->prepare("SELECT * FROM users where email='".$email."';");
@@ -52,7 +53,7 @@
                     $origen=$_FILES["image"]["tmp_name"];
                     @move_uploaded_file($origen,$dir_subida.$image);
                 }
-                $query = $pdo->prepare("INSERT INTO users (user_name,password,email,user_type,profile_image) VALUES ('".$user."',sha2('".$password."',512),'".$email."','admin','".$image."');");
+                $query = $pdo->prepare("INSERT INTO users (user_name,password,email,user_type,profile_image) VALUES ('".$user."',sha2('".$password."',512),'".$email."','$type','".$image."');");
                 $query->execute();
                 $row = $query->fetch();
 
@@ -76,11 +77,11 @@
       $link = "http://".$domain."/Ajax-Kahoot/login_singIn/acceptTOS.php?token=".$token;
 
       $subject = "Bienvenido a AJAX-Kahoot!";
-      $txt = "<html><h2>Bienvenido $name,</h2></br>".
+      $txt = "<html><div style='max-width: 600px;'><h2>Bienvenido $name,</h2></br>".
             "<p>Gracias por registrarte en AJAX-Kahoot. Para poder hacer uso de nuestra web debes aceptar los términos de servicio del siguiente enlace:</p></br>".
             "<a href='$link'>$link</a></br>".
             "<h3>¡Que disfrutes creando muchos Kahoots!</h3></br>".
-            "</p>El equipo AJAX-Kahoot</p></html>";
+            "</p>El equipo AJAX-Kahoot</p></div></html>";
 
       // To send HTML mail, the Content-type header must be set
       $headers[] = 'MIME-Version: 1.0';

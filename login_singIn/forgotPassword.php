@@ -82,11 +82,11 @@
     $link = "http://".$domain."/Ajax-Kahoot/login_singIn/changePassword.php?token=".$token;
 
     $subject = "Cambiar contraseña";
-    $txt = "<html><h2>Hola $name,</h2></br>".
+    $txt = "<html><div style='max-width: 600px;'><h2>Hola $name,</h2></br>".
           "<p>Para poder cambiar tu contraseña, debes acceder al siguiente enlace:</p></br>".
           "<a href='$link'>$link</a></br>".
           "<p>Te recomendamos que utilices una contraseña con al menos un número, una mayúscula y un carácter especial.</p></br>".
-          "</p>El equipo AJAX-Kahoot</p></html>";
+          "</p>El equipo AJAX-Kahoot</p></div></html>";
 
     // To send HTML mail, the Content-type header must be set
     $headers[] = 'MIME-Version: 1.0';

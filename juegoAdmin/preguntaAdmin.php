@@ -12,7 +12,7 @@
          $dbname = "kahoot";
          $username = "admin_kahoot";
          $pw = "P@ssw0rd";
-         $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+         $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname;charset=utf8;","$username","$pw");
        } catch (PDOException $e) {
          echo "Failed to get DB handle: " . $e->getMessage() . "\n";
          exit;
@@ -27,7 +27,6 @@
     ?>
 
     <?php
-      // ----- mostrar numero de pregunta en la parte superior ----- //
       $query = $pdo -> prepare(" select * from question where kahoot_id='".$_SESSION['kahoot_id']."'; ");
       $query -> execute();
       $row = $query -> fetch();
@@ -38,7 +37,6 @@
         $row = $query -> fetch();
       }
 
-      // ----- mostrar texto de la pregunta ----- //
       $_SESSION['countPregunta'] += 1;
       $countPregunta = $_SESSION['countPregunta'];
 
@@ -63,14 +61,10 @@
 
     <div class="botonNext">
 
-      <form class="" action="siguientePregunta.php" method="post">
+      <form class="" action="verRespuestaCorrecta.php" method="post">
         <input class="next" type="submit" name="" value="CONTINUAR">
       </form>
-      <?php
-        if ($countPregunta>$totalPreguntas) {
-          header("Location: ./finJuegoAdmin.php");
-        }
-      ?>
+
 
     </div>
 

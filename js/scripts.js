@@ -22,17 +22,21 @@ function createQuestionForm(answersCount) {
     }
     else if (type == "MULTIPLE_CHOICE") {
       var li = createElementDOM("li", "", container, []);
-      createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Pregunta "+(i+1)]);
+      createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Respuesta "+(i+1)]);
       var round = createElementDOM("div", "", li, ["class=round"]);
       var input = createElementDOM("input", "", round, ["class=checkbox", "type=checkbox", "id=checkbox"+(i+1)]);
       var label = createElementDOM("label", "", round, ["for=checkbox"+(i+1)]);
     }
+    else if (type == "FILL_GAPS") {
+      var li = createElementDOM("li", "", container, []);
+      createElementDOM("input", "", li, ["type=text", "id=inputAnswer"+(i+1), "placeholder=Espacio por rellenar "+(i+1)]);
+    }
     // ... los demás tipos de pregunta
-
   }
 
   var main = document.getElementsByTagName("main")[0];
   var questionContainer = document.getElementById("questionContainer");
+  questionContainer.setAttribute("qtype", type);
   var containerImg = createElementDOM("div", "", questionContainer, ["id=containerImg"]);
   var preview = createElementDOM("img", "", containerImg, ["src=https://cdn4.iconfinder.com/data/icons/flatified/128/photos.png","id=preview"]);
   var loadImage = createElementDOM("button", "Cargar imagen", containerImg, ["type=button"]);
@@ -41,7 +45,7 @@ function createQuestionForm(answersCount) {
     browse.click();
   });
 
-  var form = createElementDOM("form", "", main, ["action=creator.php", "method=post", "id=sendQuestion", "enctype=multipart/form-data"]);
+  var form = createElementDOM("form", "", main, ["method=post", "id=sendQuestion", "enctype=multipart/form-data"]);
   createElementDOM("input", "", form, ["type=text", "name=questionName"]);
   for (var i = 0; i < answersCount; i++) {
     createElementDOM("input", "", form, ["type=text", "name=answer"+(i+1)]);
@@ -62,18 +66,29 @@ function createQuestionForm(answersCount) {
   var right = document.getElementsByClassName("right")[0];
   createElementDOM("button", "AÑADIR", right, ["id=buttonAddQuestion", "onclick=validateNewQuestion()"]);
 
+  // Fix visual
+  document.getElementsByTagName("html")[0].setAttribute("style", "height: inherit;");
+  document.getElementsByTagName("body")[0].setAttribute("style", "height: inherit;");
+
   var questionForm = document.getElementById("questionContainer");
   questionForm.setAttribute("style", "display: block;");
 }
 
 function createNewQuestion(name, attributes) {
   var container = document.getElementById("questions");
-  var li = createElementDOM("li", "", container, ["class=clearfix"]);
+  var li = createElementDOM("li", "", container, []);
   var p = createElementDOM("p", name, li, attributes);
-  createElementDOM("button", "X", li, []);
+}
+
+
+function removeAllElements(a){
+  a.remove();
 }
 
 function changeQuestionForm() {
+  if (document.getElementById('questionContainer2')!= null) {
+    removeAllElements(document.getElementById('questionContainer2'));
+  }
   var type = getQuestionType();
   if (type == 0) {
     alert("Selecciona un tipo de pregunta!!");
@@ -85,6 +100,9 @@ function changeQuestionForm() {
       if (confirmed) {
         cleanQuestionForm();
       }
+      // Fix visual
+      document.getElementsByTagName("html")[0].setAttribute("style", "height: 100%;");
+      document.getElementsByTagName("body")[0].setAttribute("style", "height: 100%;");
     }
     if (confirmed) {
       if (type == "TRUE/FALSE") {
@@ -109,6 +127,20 @@ function changeQuestionForm() {
           alert("Introduce un número de respuestas para poder crear la pregunta!");
         }
       }
+      else if (type == "FILL_GAPS") {
+        var sentence = prompt("Escribe una frase con espacios por rellenar.\nEj: Hoy es _ _ de _, hace un día _");
+        if (sentence.includes("_")) {
+          var numberAnswers = sentence.split('_').length - 1;
+          createQuestionForm(numberAnswers);
+          createNewQuestion("Nueva pregunta", ["class=newQuestion", "style=border-color: red; word-wrap: break-word;"]);
+          var textarea = document.getElementById("question_name");
+          textarea.removeAttribute("placeholder");
+          textarea.setAttribute("readonly", "");
+          textarea.value = sentence;
+        } else {
+          alert("Esta frase no tiene espacios para rellenar. Escribe una frase con el formato correcto.");
+        }
+      }
       // ... los demás tipos de pregunta
     }
   }
@@ -128,6 +160,8 @@ function cleanQuestionForm() {
   removeElementDOM(containerImg);
   var textArea = document.getElementById("question_name");
   textArea.value = "";
+  textArea.removeAttribute("readonly");
+  textArea.setAttribute("placeholder", "Nombre de la pregunta");
   var sliderTime = document.getElementById("sliderTime");
   sliderTime.value = 20;
   var sliderPoints = document.getElementById("sliderPoints");
@@ -151,6 +185,12 @@ function getQuestionType() {
 function validateNewQuestion() {
   var answersCount = document.getElementById("answers").getElementsByTagName("li").length;
   var questionOrder = document.getElementById("questions").getElementsByTagName("li").length;
+
+  var altOrder = document.getElementsByClassName("questionRow").length;
+  if (altOrder > 0) {
+    questionOrder = altOrder+1;
+  }
+
   var textArea = document.getElementById("question_name");
 
   var answersFilled = true;
@@ -181,7 +221,7 @@ function validateNewQuestion() {
     var points = document.getElementById("sliderPoints").value;
     data.push(points);
 
-    var type = getQuestionType();
+    var type = document.getElementById("questionContainer").getAttribute("qtype");
     if (type == "MULTIPLE_CHOICE") {
       var checkboxes = document.getElementsByClassName("checkbox");
       var checked = getCheckedAnswers(checkboxes);
@@ -373,4 +413,10 @@ function closeAllSelect(elmnt) {
       x[i].classList.add("select-hide");
     }
   }
+}
+
+function onCreateEditQuestionForm() {
+  addOnUpdateSliderValue('sliderTimeEdit', 'timeValueEdit');
+  addOnUpdateSliderValue('sliderPointsEdit', 'pointsValueEdit');
+  document.getElementsByTagName('main')[0].setAttribute('style', 'width: 70%;');
 }

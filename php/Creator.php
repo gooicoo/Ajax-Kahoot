@@ -6,6 +6,19 @@ include("model/Kahoot.php");
 // POST
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["titulo-kahoot"])) {
+  // Comprueba si el usuario no es PREMIUM
+  $type = getAccountType($_SESSION["userId"]);
+  if ($type != "PREMIUM") {
+    // Obtener el número de kahoots creados por el usuario
+    $numKahoots = getNumberOfKahoots($_SESSION["userId"]);
+    if ($numKahoots >= 3) {
+      $_SESSION["alertMsg"] = "No puedes crear más de 3 kahoots. (Tu cuenta es gratuita)";
+      $_SESSION["alertType"] = "danger";
+      header("Location: ./login_singIn/loginCorrect.php");
+      exit;
+    }
+  }
+
   $_SESSION["titulo-kahoot"] = $_POST["titulo-kahoot"];
   $pin = generatePin();
   $active = 0; //true
@@ -20,50 +33,70 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["titulo-kahoot"])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["questionName"]) and isset($_POST["questionTime"]) and isset($_POST["questionOrder"]) and isset($_POST["questionPoints"]) and isset($_POST["validOptions"]) and isset($_POST["questionType"]) and isset($_POST["numberAnswers"])) {
-  $question = new Question(-1, $_POST["questionName"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"], NULL, 0);
-  $transactionInfo = addQuestion($question);
-  if ($transactionInfo[0]) {
-    $validOptions = explode(",", $_POST["validOptions"]);
-    for ($i=0; $i < $_POST["numberAnswers"]; $i++) {
-      $correct = 0; // 0 = FALSE, 1 = TRUE
-      // Comprueba si la respuesta es correcta
-      if (count($validOptions) > 0) {
-        for ($j=0; $j < count($validOptions); $j++) {
-          if (($i+1) == $validOptions[$j]) {
-            $correct = 1;
-            array_splice($validOptions, $j, 1);
-            break;
+  // Comprueba si el usuario no es PREMIUM
+  $createQuestion = false;
+  $type = getAccountType($_SESSION["kahoot_id"]);
+  if ($type != "PREMIUM") {
+    // Obtener el número de preguntas creadas en un kahoot
+    $numQuestions = getNumberOfQuestions($_SESSION["kahoot_id"]);
+    if ($numQuestions >= 5) {
+      $_SESSION["alertMsg"] = "No puedes crear más de 5 preguntas en un kahoot. (Tu cuenta es gratuita)";
+      $_SESSION["alertType"] = "danger";
+    } else {
+      $createQuestion = true;
+    }
+  } else {
+    $createQuestion = true;
+  }
+
+  if ($createQuestion) {
+    $question = new Question(-1, $_POST["questionName"], $_POST["questionType"], $_SESSION["kahoot_id"], $_POST["questionTime"], $_POST["questionOrder"], $_POST["questionPoints"], NULL, 0);
+    $transactionInfo = addQuestion($question);
+    if ($transactionInfo[0]) {
+      $validOptions = explode(",", $_POST["validOptions"]);
+      for ($i=0; $i < $_POST["numberAnswers"]; $i++) {
+        $correct = 0; // 0 = FALSE, 1 = TRUE
+        // Comprueba si la respuesta es correcta
+        if (count($validOptions) > 0) {
+          for ($j=0; $j < count($validOptions); $j++) {
+            if (($i+1) == $validOptions[$j]) {
+              $correct = 1;
+              array_splice($validOptions, $j, 1);
+              break;
+            }
           }
         }
+        $answer = new Answer(-1, $_POST["answer".($i+1)], $transactionInfo[1], $i+1, $correct);
+        addAnswer($answer);
       }
-      $answer = new Answer(-1, $_POST["answer".($i+1)], $transactionInfo[1], $i+1, $correct);
-      addAnswer($answer);
-    }
 
-    // Imagen
-    if (isset($_FILES["uploadedImage"]) and $_FILES["uploadedImage"]["error"] == 0) {
-      $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
-      $filename = $_FILES["uploadedImage"]["name"];
-      $filetype = $_FILES["uploadedImage"]["type"];
-      $filesize = $_FILES["uploadedImage"]["size"];
+      // Imagen
+      if (isset($_FILES["uploadedImage"]) and $_FILES["uploadedImage"]["error"] == 0) {
+        $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+        $filename = $_FILES["uploadedImage"]["name"];
+        $filetype = $_FILES["uploadedImage"]["type"];
+        $filesize = $_FILES["uploadedImage"]["size"];
 
-      $ext = pathinfo($filename, PATHINFO_EXTENSION);
-      if (in_array($filetype, $allowed)) {
-        if (!file_exists("imatges_kahoot/".$filename)) {
-          $path = "imatges_kahoot/".$filename;
-          move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], $path);
-        } else {
-          $filename = date("YmdHis".$_SESSION['userId']);
-          $extension = array_search($filetype, $allowed);
-          $path = "imatges_kahoot/".$filename.".".$extension;
-          move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], $path);
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if (in_array($filetype, $allowed)) {
+          if (!file_exists("imatges_kahoot/".$filename)) {
+            $path = "imatges_kahoot/".$filename;
+            move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], $path);
+          } else {
+            $filename = date("YmdHis".$_SESSION['userId']);
+            $extension = array_search($filetype, $allowed);
+            $path = "imatges_kahoot/".$filename.".".$extension;
+            move_uploaded_file($_FILES["uploadedImage"]["tmp_name"], $path);
+          }
+          updateTextFieldFromTable("question", "image_path", $path, "question_id", $transactionInfo[1]);
         }
-        updateTextFieldFromTable("question", "image_path", $path, "question_id", $transactionInfo[1]);
       }
+      $_SESSION["alertMsg"] = "Pregunta añadida correctamente!";
+      $_SESSION["alertType"] = "success";
+    } else {
+      $_SESSION["alertMsg"] = "Ha habido un error al añadir la pregunta.";
+      $_SESSION["alertType"] = "danger";
     }
-    echo "<script>alert('Pregunta añadida correctamente!');</script>";
-  } else {
-    echo "<script>alert('Ha habido un error al añadir la pregunta');</script>";
   }
 }
 
@@ -126,13 +159,14 @@ function getQuestions($kahoot_id) {
   while ($row = $query -> fetch()) {
     $question_id = $row["question_id"];
     $question_name = $row["question_name"];
+    $question_type = $row["question_type"];
     $kahoot_id = $row["kahoot_id"];
     $time = $row["time"];
     $orden = $row["orden"];
     $question_points = $row["question_points"];
     $image_path = $row["image_path"];
     $next = $row['next'];
-    $question = new Question($question_id, $question_name, $kahoot_id, $time, $orden, $question_points, $image_path, $next);
+    $question = new Question($question_id, $question_name, $question_type, $kahoot_id, $time, $orden, $question_points, $image_path, $next);
     array_push($questions, $question);
   }
   return $questions;
@@ -159,14 +193,15 @@ function getAnswers($question_id) {
 function addQuestion($question) {
   try {
     $pdo = getConnection();
-    $query = $pdo->prepare("INSERT INTO question (question_name, kahoot_id, time, orden, question_points, image_path, next) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $query = $pdo->prepare("INSERT INTO question (question_name, question_type, kahoot_id, time, orden, question_points, image_path, next) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $query->bindParam(1, $question->question_name);
-    $query->bindParam(2, $question->kahoot_id);
-    $query->bindParam(3, $question->time);
-    $query->bindParam(4, $question->orden);
-    $query->bindParam(5, $question->question_points);
-    $query->bindParam(6, $question->image_path);
-    $query->bindParam(7, $question->next);
+    $query->bindParam(2, $question->question_type);
+    $query->bindParam(3, $question->kahoot_id);
+    $query->bindParam(4, $question->time);
+    $query->bindParam(5, $question->orden);
+    $query->bindParam(6, $question->question_points);
+    $query->bindParam(7, $question->image_path);
+    $query->bindParam(8, $question->next);
     $success = $query->execute();
     if ($success) {
       $return = array();
@@ -195,5 +230,29 @@ function updateTextFieldFromTable($table, $field, $newValue, $fieldID, $id) {
   $pdo = getConnection();
   $query = $pdo->prepare("UPDATE $table SET $field = '$newValue' WHERE $fieldID = $id");
   $query->execute();
+}
+
+function getAccountType($user_id) {
+  $pdo = getConnection();
+  $query = $pdo->prepare("SELECT user_type FROM users WHERE user_id = $user_id");
+  $query->execute();
+  $row = $query->fetch();
+  return $row['user_type'];
+}
+
+function getNumberOfKahoots($user_id) {
+  $pdo = getConnection();
+  $query = $pdo->prepare("SELECT count(*) FROM kahoot WHERE user_id = $user_id");
+  $query->execute();
+  $row = $query->fetch();
+  return $row["count(*)"];
+}
+
+function getNumberOfQuestions($kahoot_id) {
+  $pdo = getConnection();
+  $query = $pdo->prepare("SELECT count(*) FROM question WHERE kahoot_id = $kahoot_id");
+  $query->execute();
+  $row = $query->fetch();
+  return $row["count(*)"];
 }
  ?>

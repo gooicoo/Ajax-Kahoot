@@ -5,7 +5,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel=stylesheet href="./CSS/registrarUsuarioCSS.css">
-
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function(event) {
+        var form = document.getElementsByTagName("form")[0];
+        form.onsubmit = function() {
+          var select = document.getElementsByTagName("select")[0];
+          var text = select.options[select.selectedIndex].text;
+          if (text == "Select an user type") {
+            alert("Select a valid user type!!");
+            return false;
+          }
+          return true;
+        };
+      });
+    </script>
 </head>
 
 <body>
@@ -42,21 +55,25 @@
                         <div class="input-group mb-2" style="margin-top: 18px;">
                             <input type="file" name="image" style="font-size: 15px;">
                         </div>
-                        <div class="form-group">
+                        <div class="input-group mb-2" style="margin-top: 13px;">
+                          <select class="form-control" name="type">
+                            <option hidden>Select an user type</option>
+                            <option>Free</option>
+                            <option>Premium</option>
+                          </select>
+                        </div>
+                        <div class="form-group" style="display: none;">
                             <div class="custom-control custom-checkbox"><?php require('comprobarRegistroPHP.php'); ?></div>
                         </div>
-                    <div class="d-flex justify-content-center mt-3 login_container">
+                    <div class="d-flex justify-content-center mt-2 login_container">
                         <button type="sumbit" class="btn login_btn">Create account!</button>
                     </div>
-                    </form>
+                  </form>
                 </div>
-        
                 
-                    <div class="d-flex justify-content-center links" style="position: relative; bottom: -88px;">
+                    <div class="d-flex justify-content-center links mt-1" style="position: relative; bottom: -88px;">
                         Do you have an account? <a href="index.php" class="ml-2">Login!</a>
                     </div>
-               
-        
             </div>
         </div>
     </div>

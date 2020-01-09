@@ -43,6 +43,16 @@
         if ( isset($_POST['nickname']) ) {
           $queryGamer = $pdo -> prepare(" INSERT INTO gamer (gamer_name, kahoot_id) values ('$nombreGamer','$kahootID'); ");
           $queryGamer -> execute();
+
+          $queryGamer = $pdo -> prepare(" SELECT * FROM gamer where kahoot_id='".$kahootID."'; ");
+          $queryGamer -> execute();
+          $rowGamer = $queryGamer -> fetch();
+          $gamerID = $rowGamer['gamer_id'];
+          $_SESSION['gamerID'] = $gamerID;
+
+
+          $queryRanking = $pdo -> prepare( " INSERT INTO ranking (points , kahoot_id , gamer_id) values (0 , '$kahootID' , '$gamerID'); " );
+          $queryRanking -> execute();
         }
       ?>
     </div>
@@ -60,7 +70,7 @@
 
       if ($comporbarEntrar==1) {
         $_SESSION['countRespuesta'] = 0;
-        header("Location: ../juegoGamer/juegoGamer.php");
+        header("Location: ../juegoGamer/cuentaAtrasRespuesta.php");
       }
 
     ?>

@@ -1,5 +1,59 @@
 @import url(https://fonts.googleapis.com/css?family=Bungee);
 
+.X{
+  height: 40px;
+  width: 35px;
+  line-height: 1.3;
+  border: none;
+  border-radius: 40%;
+  font-size: 25px;
+  background-color: red;
+  color: white;
+}
+.buttonEditar{
+  margin-block-start: 0;
+  margin-block-end: 0;
+  display: inline-block;
+  width: 100%;
+  margin-right: 1.5%;
+  border-radius: 15px;
+  border: 2px solid blue;
+  padding: 7.5px;
+      padding-right: 7.5px;
+      padding-left: 7.5px;
+  padding-left: 3%;
+  padding-right: 3%;
+  background: white;
+}
+#nombreP{
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+}
+.btnO{
+  margin-block-start: 0;
+  margin-block-end: 0;
+  display: inline-block;
+  width: 47%;
+  margin-top: 15px;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+  border-radius: 15px;
+  padding: 7.5px;
+  background-color: #3cb766;
+}
+.btnOff{
+  margin-block-start: 0;
+  margin-block-end: 0;
+  display: inline-block;
+  width: 47%;
+  margin-top: 15px;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+  border-radius: 15px;
+  padding: 7.5px;
+  background-color: red;
+}
 /* Radio button personalizado */
 .round {
   position: relative;
@@ -12,7 +66,7 @@
   cursor: pointer;
   height: 48px;
   right: 2%;
-  bottom: 9px;
+  bottom: 15px;
   position: absolute;
   width: 48px;
   box-shadow: 0 0 5px rgba(0,0,0,0.6);
@@ -63,7 +117,9 @@
 
 /* The container must be positioned relative: */
 .custom-select {
-  margin-top: 10px;
+  height: inherit;
+  padding: 0;
+  margin-bottom: 10px;
   position: relative;
   font-family: 'Bungee';
 }
@@ -80,7 +136,7 @@
 .select-selected:after {
   position: absolute;
   content: "";
-  top: 14px;
+  top: 18px;
   right: 10px;
   width: 0;
   height: 0;
@@ -91,7 +147,7 @@
 /* Point the arrow upwards when the select box is open (active): */
 .select-selected.select-arrow-active:after {
   border-color: transparent transparent #fff transparent;
-  top: 7px;
+  top: 11px;
 }
 
 /* style the items (options), including the selected item: */
@@ -101,6 +157,10 @@
   border: 1px solid transparent;
   border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
   cursor: pointer;
+}
+
+.select-selected {
+  padding-right: 30px;
 }
 
 /* Style items (options): */
@@ -135,12 +195,8 @@
   height: 0;
 }
 
-html, body {
+html, body, .main-container {
   height: 100%;
-}
-
-body {
-  margin: 0;
 }
 
 p, button, textarea, input {
@@ -154,18 +210,32 @@ ul {
   margin-block-end: 0;
 }
 
+.alert {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.nav-container {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+}
+
 #barra-menu{
+  display: flex;
   background-color: #23b2e1;
   width: 100%;
   height: 60px;
-  position: fixed;/*relative;*/
-  top: 0;
   z-index: 1;
   box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.75);
 }
 
-.kahoot {
+.kahoot, .block-60 {
   height: 60px;
+  min-height: 60px;
+}
+
+.kahoot {
   line-height: 60px;
   width: 80%;
   display: inline-block;
@@ -177,41 +247,45 @@ ul {
 }
 
 #barra-menu > .button-container {
-  float: right;
-  margin-right: 1%;
-  width: 19%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 5px;
 }
 
 #barra-menu > .button-container > button {
-  float: right;
-  margin-top: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin: 0;
+  height: 50px;
+}
+
+.main-container > div.flex-row {
+  height: 100%;
 }
 
 aside {
-  height: 100%;
   width: 30%;
-  margin-top: 60px;
-  float: left;
 }
 
 main {
   height: 100%;
-  width: 60%;
-  margin-top: 60px;
+  max-width: 70%;
   padding: 5%;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: lightgray;
-  float: left;
 }
 
 #questionContainer {
   display: none;
 }
 
-#questions > li {
+#questionContainer > div.flex-row {
+  justify-content: space-between;
+}
+
+#questions > li, .questionRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
   margin-bottom: 5px;
 }
@@ -219,25 +293,24 @@ main {
 #questions > li > p {
   margin-block-start: 0;
   margin-block-end: 0;
-  display: inline-block;
-  width: 80%;
-  margin-right: 1.5%;
+  width: 100%;
   border-radius: 15px;
   border: 2px solid blue;
   padding: 7.5px;
   padding-left: 3%;
   padding-right: 3%;
+  text-align: center;
 }
 
 #questions > li > button {
+  height: 40px;
+  width: 35px;
+  line-height: 1.3;
   border: none;
   border-radius: 40%;
   font-size: 25px;
   background-color: red;
   color: white;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 #questions > li > button {
@@ -245,28 +318,31 @@ main {
 }
 
 #answers {
-  float: left;
   width: 67.5%;
-  margin-right: 2.5%;
 }
 
 #answers > li {
   border-radius: 15px;
   border: 2px solid blue;
+  height: 70px;
   margin-bottom: 5px;
   background-color: white;
 }
 
-#answers > li:nth-child(2) {
-  border-color: red;
+#answers > li:nth-of-type(4n+1) {
+  border-color: blue;
 }
 
-#answers > li:nth-child(3) {
+#answers > li:nth-of-type(4n+2) {
   border-color: green;
 }
 
-#answers > li:nth-child(4) {
-  border-color: yellow;
+#answers > li:nth-of-type(4n+3) {
+  border-color: red;
+}
+
+#answers > li:nth-of-type(4n+0) {
+  border-color: #e6de00;
 }
 
 #answers > li > input {
@@ -294,14 +370,12 @@ main {
 }
 
 .right {
-  float: right;
-  width: 30%
+  width: 30%;
+  max-width: 235px;
 }
 
 #containerImg {
-  width: 67.5%;
-  float: left;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 #containerImg > img {
@@ -322,7 +396,7 @@ main {
 }
 
 .slidecontainer:nth-child(2) {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 /* The slider itself */
@@ -375,13 +449,19 @@ main {
   text-align: center;
   width: 85px;
   font-size: 40px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 10px;
   margin-bottom: 15px;
 }
 
 #pointsValue {
   width: 60%;
+  padding: 0;
+  border-radius: 5px;
+  font-size: 25px;
+}
+
+#pointsValueEdit {
+  width: 20%;
   padding: 0;
   border-radius: 5px;
   font-size: 25px;
@@ -403,7 +483,7 @@ main {
   margin: auto;
   margin-top: 15px;
   text-align: center;
-  font-size: 32px;
+  font-size: 20px;
 }
 
 aside > div {

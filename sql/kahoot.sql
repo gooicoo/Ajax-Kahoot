@@ -100,6 +100,7 @@ INSERT INTO `kahoot` (`kahoot_id`, `user_id`, `kahoot_name`, `pin`, `active`, `l
 CREATE TABLE `question` (
   `question_id` int(11) NOT NULL,
   `question_name` varchar(150) NOT NULL,
+  `question_type` varchar(20) NOT NULL,
   `kahoot_id` int(11) DEFAULT NULL,
   `time` int(11) NOT NULL,
   `orden` int(11) NOT NULL,
@@ -112,12 +113,12 @@ CREATE TABLE `question` (
 -- Volcado de datos para la tabla `question`
 --
 
-INSERT INTO `question` (`question_id`, `question_name`, `kahoot_id`, `time`, `orden`, `question_points`, `image_path`, `next`) VALUES
-(1, 'El Granada está en Primera División?', 5, 30, 1, 600, NULL, 0),
-(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 5, 20, 2, 1000, NULL, 0),
-(3, 'El Madrid ganó la última Champions League?', 5, 20, 3, 750, NULL, 0),
-(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 5, 25, 4, 750, NULL, 0),
-(5, 'El Valencia ganó la última Copa del Rey?', 5, 15, 5, 450, NULL, 0);
+INSERT INTO `question` (`question_id`, `question_name`, `question_type`, `kahoot_id`, `time`, `orden`, `question_points`, `image_path`, `next`) VALUES
+(1, 'El Granada está en Primera División?', 'TRUE/FALSE', 5, 30, 1, 600, NULL, 0),
+(2, 'El primer Clásico de la temporada se jugará el 18/12/2019?', 'TRUE/FALSE', 5, 20, 2, 1000, NULL, 0),
+(3, 'El Madrid ganó la última Champions League?', 'TRUE/FALSE', 5, 20, 3, 750, NULL, 0),
+(4, 'El FC Barcelona ha ganado 5 Champions League en toda su historia?', 'TRUE/FALSE', 5, 25, 4, 750, NULL, 0),
+(5, 'El Valencia ganó la última Copa del Rey?', 'TRUE/FALSE', 5, 15, 5, 450, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -189,9 +190,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `password`, `email`, `user_type`, `profile_image`) VALUES
-(1, 'Joel', '6bfcc4026b5f162799a6dc8305c09db9c1674ac616bd5c7422a45fbb6d0816ac163047c47a1f426f4f4c6b5b5042c671eabc4fdc7310fd5b183eef59dc274604', 'joel@gmail.com', 'admin', 'img_defecto.png'),
-(2, 'Didac', '959bb4493362054abfdcfb0ec24b87c0c745cca282eb8a071ae39ed65199986789e011b7e336dd4d75ea2229b57f82dd346beff6d5409d4e93dcad0e088e5e55', 'didac@gmail.com', 'gamer', 'img_defecto.png'),
-(3, 'Marc', '93cc945e4eb44677799a68b6a0cd6615b1ca9b8d525812e7f6efc84853a6dc5d5a086bff517db5b7f21f04e6cccdd7b75f7b120545e163009a5af81b1aef657e', 'marc@gmail.com', 'gamer', 'img_defecto.png');
+(1, 'Joel', '6bfcc4026b5f162799a6dc8305c09db9c1674ac616bd5c7422a45fbb6d0816ac163047c47a1f426f4f4c6b5b5042c671eabc4fdc7310fd5b183eef59dc274604', 'joel@gmail.com', 'PREMIUM', 'img_defecto.png'),
+(2, 'Didac', '959bb4493362054abfdcfb0ec24b87c0c745cca282eb8a071ae39ed65199986789e011b7e336dd4d75ea2229b57f82dd346beff6d5409d4e93dcad0e088e5e55', 'didac@gmail.com', 'PREMIUM', 'img_defecto.png'),
+(3, 'Marc', '93cc945e4eb44677799a68b6a0cd6615b1ca9b8d525812e7f6efc84853a6dc5d5a086bff517db5b7f21f04e6cccdd7b75f7b120545e163009a5af81b1aef657e', 'marc@gmail.com', 'PREMIUM', 'img_defecto.png');
 
 --
 -- Índices para tablas volcadas

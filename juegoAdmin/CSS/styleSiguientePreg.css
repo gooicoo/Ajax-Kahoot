@@ -4,10 +4,11 @@ body{
   background-color: rgb(65, 196, 222);
   font-family: 'Bungee';
   font-size: 140px;
+
 }
 
 .cuentaAtras{
-  width: 200px;
+  width: 95%;
   height: 200px;
   margin: 0 auto;
   margin-top: 20%;
@@ -25,4 +26,8 @@ body{
   60%  { content: "2"; }
   80%  { content: "1"; }
   100% { content: "0"; }
+}
+
+.text{
+  font-size: 30px;
 }

@@ -3,7 +3,7 @@
 <head>
 	<title></title>
 	<link rel=stylesheet href="waitingCSS.css">
-	<meta http-equiv="refresh" content="5;URL=index.php" >
+	<meta http-equiv="refresh" content="2;URL=index.php" >
 </head>
 <body>
 	<div class="container">
@@ -38,6 +38,11 @@
 		<form method="post" action="../juegoAdmin/preguntaAdmin.php">
 			<?php require ('enableButton.php');  ?>
 		</form>
+
+		<form method="post" action="./../login_singIn/loginCorrect.php">
+			<button type="sumbit" class="btn">Volver</button>
+		</form>
+
 	</div>
 </body>
 </html>
