@@ -19,9 +19,9 @@
       echo '<input id="prodId" name="answerId" type="hidden" value='.$rowAnswerEdit["answer_id"].'>';
       if ($question_type == "TRUE/FALSE") {
         if ($rowAnswerEdit['correct']==1) {
-          echo '<li><input id="inputAnswer'.$contador.'" value="'.$rowAnswerEdit["answer_name"].'" type="text" name="answerName'.$contador.'"><div class="round"><input name="gender" id="checkbox'.$contador.'" type="radio" checked><label for="checkbox'.$contador.'"></label></div></li>';
+          echo '<li><input id="inputAnswer'.$contador.'" value="'.$rowAnswerEdit["answer_name"].'" type="text" name="answerName'.$contador.'"><div class="round"><input name="gender" id="checkbox'.$contador.'" type="radio" value="'.$contador.'" checked><label for="checkbox'.$contador.'"></label></div></li>';
         }else{
-          echo '<li><input id="inputAnswer'.$contador.'" value="'.$rowAnswerEdit["answer_name"].'" type="text" name="answerName'.$contador.'"><div class="round"><input name="gender" id="checkbox'.$contador.'" type="radio"><label for="checkbox'.$contador.'"></label></div></li>';
+          echo '<li><input id="inputAnswer'.$contador.'" value="'.$rowAnswerEdit["answer_name"].'" type="text" name="answerName'.$contador.'"><div class="round"><input name="gender" id="checkbox'.$contador.'" type="radio" value="'.$contador.'"><label for="checkbox'.$contador.'"></label></div></li>';
         }
       }
       else if ($question_type == "MULTIPLE_CHOICE") {

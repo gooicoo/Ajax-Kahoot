@@ -37,8 +37,10 @@ if (isset($_POST['eliminarQuestion'])) {
   $queryAnswers = $pdo -> prepare(" SELECT * FROM answer where question_id=".$questionId."; ");
   $queryAnswers -> execute();
   $rowAnswers = $queryAnswers -> fetch();
+
   while ($rowAnswers) {
     if (isset($_POST['checked'.$contador])) {
+
       $queryAnswersUpdate = $pdo -> prepare("UPDATE answer SET answer_name='".$_POST['answerName'.$contador]."',correct=1 WHERE orden=".$contador." and question_id=".$questionId.";");
       $queryAnswersUpdate -> execute();
     }else{
@@ -50,5 +52,19 @@ if (isset($_POST['eliminarQuestion'])) {
   }
   $queryQuestionUpdate = $pdo -> prepare(" UPDATE question SET question_name='".$_POST['questionName']."', time=".$_POST['time'].",question_points=".$_POST['points']." where question_id=".$questionId."; ");
   $queryQuestionUpdate -> execute();
+  }
+
+  if (isset($_POST['gender'])) {
+    if ($_POST['gender']==1) {
+      $queryAnswersGender = $pdo -> prepare("UPDATE answer SET correct=1 WHERE orden=1 and question_id=".$questionId.";");
+       $queryAnswersGender -> execute();
+      $queryAnswersUpdate1 = $pdo -> prepare("UPDATE answer SET correct=0 WHERE orden=2 and question_id=".$questionId.";");
+      $queryAnswersUpdate1 -> execute();
+    }elseif ($_POST['gender']==2) {
+      $queryAnswersGender = $pdo -> prepare("UPDATE answer SET correct=0 WHERE orden=1 and question_id=".$questionId.";");
+       $queryAnswersGender -> execute();
+      $queryAnswersUpdate1 = $pdo -> prepare("UPDATE answer SET correct=1 WHERE orden=2 and question_id=".$questionId.";");
+      $queryAnswersUpdate1 -> execute();
+    }
   }
 ?>
