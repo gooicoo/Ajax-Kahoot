@@ -52,8 +52,7 @@ if (isset($_POST['eliminarQuestion'])) {
   }
   $queryQuestionUpdate = $pdo -> prepare(" UPDATE question SET question_name='".$_POST['questionName']."', time=".$_POST['time'].",question_points=".$_POST['points']." where question_id=".$questionId."; ");
   $queryQuestionUpdate -> execute();
-  }
-
+  
   if (isset($_POST['gender'])) {
     if ($_POST['gender']==1) {
       $queryAnswersGender = $pdo -> prepare("UPDATE answer SET correct=1 WHERE orden=1 and question_id=".$questionId.";");
@@ -67,4 +66,7 @@ if (isset($_POST['eliminarQuestion'])) {
       $queryAnswersUpdate1 -> execute();
     }
   }
+  }
+
+  
 ?>
