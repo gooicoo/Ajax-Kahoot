@@ -13,7 +13,7 @@
        $dbname = "kahoot";
        $username = "admin_kahoot";
        $pw = "P@ssw0rd";
-       $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+       $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname;charset=utf8;","$username","$pw");
      } catch (PDOException $e) {
        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
        exit;
@@ -40,16 +40,40 @@
 
       $orden = $rowPregunta['orden'];
       $pregunta = $rowPregunta['question_name'];
+      $questionType = $rowPregunta['question_type'];
 
       $_SESSION['question_id'] = $rowPregunta['question_id'];
+      $question_id = $rowPregunta['question_id'];
 
-      $respuesta = $_SESSION['respuesta'];
+      if ($questionType == 'FILL_GAPS') {
+        $respuestas = array();
+        $respuesta = $pregunta;
 
-      if ($respuesta=='1') {
-        $respuesta = 'Verdadero';
-      }elseif ($respuesta=='2') {
-        $respuesta = 'Falso';
+        $queryRespuestas = $pdo -> prepare("SELECT answer_name FROM answer WHERE question_id = $question_id");
+        $queryRespuestas -> execute();
+        $rowRespuestas = $queryRespuestas -> fetch();
+        while ($rowRespuestas) {
+          array_push($respuestas, $rowRespuestas['answer_name']);
+          $rowRespuestas = $queryRespuestas -> fetch();
+        }
+        $lengthResp = count($respuestas);
+
+        for ($i=0; $i < $lengthResp; $i++) {
+          $search = "_";
+          $replace = strval($respuestas[$i]);
+          $temp = 1;
+          $pregunta = str_replace("_", $replace, $respuesta, $temp);
+          $respuesta = $pregunta;
+        }
+      } else {
+        $respuesta = $_SESSION['respuesta'];
+        if ($respuesta=='1') {
+          $respuesta = 'Verdadero';
+        }elseif ($respuesta=='2') {
+          $respuesta = 'Falso';
+        }
       }
+
     ?>
 
     <div class="numeroPregunta">

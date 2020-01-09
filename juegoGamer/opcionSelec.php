@@ -44,7 +44,7 @@
        $questionType = $rowPreguntaNext['question_type'];
 
        if ($questionType == "FILL_GAPS") {
-         if (!isset($_SESSION["respuestaCorrecta"])) {
+         if (!isset($_SESSION['correctaFG'])) {
            $respuestaCorrect = 0;
            if (isset($_POST['totalAnswers']) and isset($_SESSION['question_id'])) {
              $answers = array();
@@ -52,6 +52,7 @@
              $queryRespuestaCorrect = $pdo -> prepare("SELECT * FROM answer WHERE question_id=$question_id ORDER BY orden ASC;");
              $queryRespuestaCorrect -> execute();
              $rowRespuestaCorrect = $queryRespuestaCorrect -> fetch();
+             $_SESSION['answer_id'] = $rowRespuestaCorrect['answer_id'];
              while ($rowRespuestaCorrect) {
                array_push($answers, $rowRespuestaCorrect['answer_name']);
                $rowRespuestaCorrect = $queryRespuestaCorrect -> fetch();

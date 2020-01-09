@@ -8,7 +8,7 @@
 
 
   </head>
-  <body onload="cronoInicio()">
+  <body>
     <?php
       try {
          $hostname = "localhost";
@@ -64,6 +64,7 @@
       <?php if ($questionType == "FILL_GAPS"): ?>
         <form action="opcionSelec.php" method="post">
           <?php
+          echo '<input id="tiempoContestar" type="hidden" name="tiempoContestar" value='.$rowPregunta["time"].'></input>';
           // Importar Drag & Drop
           echo '<script type="text/javascript" src="js/DnD.js"></script>';
 
