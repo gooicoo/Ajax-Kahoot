@@ -76,7 +76,6 @@
            }
          }
        } else {
-         if (isset($_POST['respuesta'])) {
            $queryRespuestaCorrect = $pdo -> prepare(" select * from answer where question_id='".$_SESSION['question_id']."' and answer_name='".$_SESSION['respuesta']."'; ");
            $queryRespuestaCorrect -> execute();
            $rowRespuestaCorrect = $queryRespuestaCorrect -> fetch();
@@ -94,9 +93,7 @@
            }elseif ($respuesta=='2') {
              $respuesta = 'Falso';
            }
-         } else {
-           $respuestaCorrect = 0;
-         }
+        
        }
 
       if (isset($_SESSION['tiempo'])) {

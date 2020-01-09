@@ -45,6 +45,11 @@
       $_SESSION['question_id'] = $rowPregunta['question_id'];
       $question_id = $rowPregunta['question_id'];
 
+      $queryRespuestaCorrecta = $pdo -> prepare(" select * from answer where question_id='".$_SESSION['question_id']."' and correct=1; ");
+      $queryRespuestaCorrecta -> execute();
+      $rowRespuestaCorrecta = $queryRespuestaCorrecta -> fetch();
+      $respuesta = $rowRespuestaCorrecta['answer_name'];
+
       if ($questionType == 'FILL_GAPS') {
         $respuestas = array();
         $respuesta = $pregunta;
@@ -67,8 +72,7 @@
           $respuesta = $pregunta;
           array_splice($respuestas, 0, 1);
         }
-      } else {
-        $respuesta = $_SESSION['respuesta'];
+      } elseif ($questionType == 'TRUE/FALSE') {
         if ($respuesta=='1') {
           $respuesta = 'Verdadero';
         }elseif ($respuesta=='2') {
@@ -87,7 +91,7 @@
     </div>
 
 
-    
+
 
     <?php
       $queryGamer = $pdo -> prepare(" update question set next=1 where kahoot_id='".$_SESSION['kahoot_id']."' and orden=".$_SESSION['countPregunta']."; ");
