@@ -49,6 +49,11 @@
       $queryRespuestaCorrecta -> execute();
       $rowRespuestaCorrecta = $queryRespuestaCorrecta -> fetch();
       $respuesta = $rowRespuestaCorrecta['answer_name'];
+      while ($rowRespuestaCorrecta) {
+        $rowRespuestaCorrecta = $queryRespuestaCorrecta -> fetch();
+        $respuesta .= " ".$rowRespuestaCorrecta['answer_name'];
+      }
+      
 
       if ($questionType == 'FILL_GAPS') {
         $respuestas = array();
